@@ -1,12 +1,49 @@
-<!--index.wxml-->
-<view class="page-section page-section-gap">
-  <map
-      id="myMap"
-      style="width: 100%; height: 600px;"
-      latitude="{{latitude}}"
-      longitude="{{longitude}}"
-      markers="{{markers}}"
-      covers="{{covers}}"
-      show-location
-  ></map>
+<view class="page">
+  <map id="my_map" style="width: 100%; height: 100vh;" latitude="{{latitude}}" longitude="{{longitude}}" scale="{{scale}}" show-location="{{show_location}}" markers="{{markers}}" bindmarkertap="markertap"
+  >
+
+
+    <!--重定位按钮-->
+    <cover-image
+      class="reset_position"
+      src='/figs/reset.png'
+      bindtap='to_reset'
+    ></cover-image>
+
+    <!--打卡按钮-->
+    <cover-image
+      class="check_button "
+      src='/figs/Clipboard.png'
+      bindtap='to_check'
+    ></cover-image>
+    
+    <!--探索按钮-->
+    <cover-image
+      class="explore_button "
+      src='/figs/Infinity.png'
+      bindtap='to_explore'
+    ></cover-image>
+
+    <!--弹窗暗背景-->
+    <cover-view
+      class="dark_cover"
+      style="opacity:{{opacity}}"
+      hidden="{{my_modal_hidden}}"
+    ></cover-view>
+
+    <!--marker点信息弹窗-->
+    <cover-view
+      class="my_modal"
+      hidden="{{my_modal_hidden}}"
+      >
+      <cover-image
+        class="explore_show_photo"
+        src="{{explore_photo_path}}"
+        bindtap='return_tap'
+      ></cover-image>
+      <cover-view class="explore_show_title">标题</cover-view>
+      </cover-view>
+
+  </map>
+  
 </view>

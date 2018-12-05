@@ -1,9 +1,59 @@
 @import "../../lib/weui.wxss";
 
-.page-section{
-  margin-bottom: 20rpx;
+.page {
+  width: 100%;
+  height: 100vh;
 }
-.flex-wrp {display: flex;}
-.bc_green {background: green;width:100px; height: 100px;}
-.bc_red {background: red;width:100px; height: 100px;}
-.bc_blue {background: blue;width:100px; height: 100px;}
+
+.reset_position {
+  position: absolute;
+  width: 120rpx;
+  height: 120rpx;
+  right: 30rpx;
+  bottom: 360rpx;
+}
+
+.check_button {
+  position: absolute;
+  width: 120rpx;
+  height: 120rpx;
+  right: 30rpx;
+  bottom: 210rpx;
+}
+
+.explore_button {
+  position: absolute;
+  width: 120rpx;
+  height: 120rpx;
+  right: 30rpx;
+  bottom: 60rpx;
+}
+
+.dark_cover {
+  width: 100%;
+  height: 100%;
+  background: black;
+  position: fixed;
+}
+
+.my_modal {
+  width: 70%;
+  height: 100%;
+  background: white;
+  border-radius: 5rpx;
+  position: fixed;
+}
+
+.explore_show_photo {
+  position: absolute;
+  width: 100%;
+  height: 500rpx;
+  top: 5rpx;
+}
+.explore_show_title{
+  position: absolute;
+  width: 100%;
+
+  left: 5rpx;
+  top: 510rpx;
+}

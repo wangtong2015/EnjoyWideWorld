@@ -9,7 +9,7 @@
   "window": {
     "backgroundColor": "#282828",
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#aaaaaa",
+    "navigationBarBackgroundColor": "#eeeeee",
     "navigationBarTitleText": "EnjoyWideWorld",
     "navigationBarTextStyle": "black"
   },

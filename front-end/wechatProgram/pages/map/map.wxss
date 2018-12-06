@@ -52,8 +52,28 @@
 }
 .explore_show_title{
   position: absolute;
-  width: 100%;
-
-  left: 5rpx;
+  right: 20rpx;
   top: 510rpx;
+  font-weight: bold;
+  font-size: larger;
+}
+.explore_show_exp{
+  position: absolute;
+  right: 20rpx;
+  top: 580rpx;
+  font-size: medium;
+}
+.explore_show_harvest{
+  position: absolute;
+  right: 20rpx;
+  top: 640rpx;
+  font-size: medium;
+}
+.explore_show_description{
+  position: absolute;
+  left: 20rpx;
+  right: 20rpx;
+  bottom: 20rpx;
+  font-size: medium;
+  white-space: normal
 }

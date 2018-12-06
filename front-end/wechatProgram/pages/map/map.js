@@ -31,7 +31,11 @@ Page({
       height: 35
     }],
     opacity:0.5,
-    explore_photo_path: "/photos/1ed73edb52d890c4b589d56c5149c28f.jpg"
+    explore_photo_path: "/photos/1ed73edb52d890c4b589d56c5149c28f.jpg",
+    title:"清华大学",
+    harvest:"铁剑",
+    exp:10,
+    description:"清华大学（英语：Tsinghua University，缩写作 THU），简称清华，旧称清华学堂、清华学校、国立清华大学，是一所位于中华人民共和国北京市海淀区清华园的公立大学。始建于1911年，因北京西北郊清华园而得名[18]。初为清政府利用美国退还的部分庚子赔款所建留美预备学校“游美学务处”及附设“肄业馆”，于1925年始设大学部[19]。"
   },
 
 

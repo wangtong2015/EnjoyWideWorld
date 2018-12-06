@@ -41,7 +41,10 @@
         src="{{explore_photo_path}}"
         bindtap='return_tap'
       ></cover-image>
-      <cover-view class="explore_show_title">标题</cover-view>
+      <cover-view class="explore_show_title">{{title}}</cover-view>
+      <cover-view class="explore_show_exp">经验值 ：{{exp}}</cover-view>
+      <cover-view class="explore_show_harvest">获取物品 ：{{harvest}}</cover-view>
+      <cover-view class="explore_show_description">--简介 ：{{description}}</cover-view>
       </cover-view>
 
   </map>

@@ -17,6 +17,8 @@ from django.conf.urls import url
 from django.contrib import admin
 from userinfo import views
 import userinfo.models
+from . import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -25,3 +27,5 @@ urlpatterns = [
     url(r'register/', views.register),
     url(r'userinfo/', views.userinfo),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

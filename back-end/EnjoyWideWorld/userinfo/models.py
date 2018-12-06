@@ -6,7 +6,7 @@ class UserInfo(models.Model):
     username = models.CharField(max_length = 32)
     username.primary_key = True # 主键
     password = models.CharField(max_length = 32)
-    profile_picture = models.ImageField(upload_to='../static/user/', height_field=144, width_field=144, default = None) # 用户头像
+    profile_picture = models.ImageField(upload_to='./static/user/', default = None) # 用户头像
     
     # optional 
     gender = models.CharField(max_length = 2, default = "其他") # 男性、女性、其他
@@ -21,6 +21,9 @@ class UserInfo(models.Model):
     
     update_time = models.DateField(default = None) # 用户最后一次修改时间
     
+    def __str__(self):
+        return self.username
+    
 # 宠物信息
 class Pet(models.Model):
     username = models.CharField(max_length = 32)
@@ -30,7 +33,7 @@ class Pet(models.Model):
     weight = models.PositiveIntegerField(default = 0) # 体重
     gender = models.CharField(max_length = 2, default = "无性") # 雄性、雌性、无性
     
-    pet_picture =  models.ImageField(upload_to='../static/pet/', height_field=144, width_field=144, default = None) # 宠物头像
+    pet_picture =  models.ImageField(upload_to='./static/pet/', default = None) # 宠物头像
     
     birthday = models.DateField(default = None) # 宠物生日
     
@@ -38,6 +41,8 @@ class Pet(models.Model):
     
     description = models.TextField(default = "我是主人的小棉袄") # 宠物简介
     
+    def __str__(self):
+        return "{0}.{1}".format(self.username, self.petname)
 
 # 地点信息  
 class Position(models.Model):
@@ -46,6 +51,9 @@ class Position(models.Model):
     position_name = models.CharField(max_length = 32) # 地点名
     longitude = models.DecimalField(max_digits=20, decimal_places = 15) # 经度
     latitude = models.DecimalField(max_digits=20, decimal_places = 15) # 纬度
-    position_picture =  models.ImageField(upload_to='../static/position/', default = None) # 地点图片
+    position_picture =  models.ImageField(upload_to='./static/position/', default = None) # 地点图片
     time = models.DateField(default = None) # 打卡时间
     notes = models.TextField(default = "到此一游") # 地点随记
+    
+    def __str__(self):
+        return "{0}.{1}.{2}".format(self.username, self.petname, self.position_name)

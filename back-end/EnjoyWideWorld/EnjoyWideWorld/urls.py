@@ -18,9 +18,6 @@ from django.contrib import admin
 from userinfo import views
 import userinfo.models
 
-admin.site.register(userinfo.models.UserInfo)
-admin.site.register(userinfo.models.Pet)
-admin.site.register(userinfo.models.Position)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),

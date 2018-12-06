@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>魔宠宅急变</title>
+    </head>
+
+    <script>
+
+    </script>
+
+    <style> 
+        
+    </style> 
+
+    <body>
+        <h1 style="background-color: antiquewhite;color: black;" align="center">魔宠宅急变</h1>
+        <div align="center">
+            <form action="/register/" method="GET">
+                <input type="submit" value="创建用户"/>
+            </form>
+
+            <form action="/userinfo/" method="GET">
+                <input type="submit" value="所有用户"/>
+            </form>
+        </div>
+        {% if msg %}
+        <h2 style="background-color: antiquewhite;color: black;" align="center">{{msg}}</h1>
+        {% endif %}
+    </body>
+
+</html>

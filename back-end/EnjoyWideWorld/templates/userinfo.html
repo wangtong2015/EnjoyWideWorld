@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>魔宠宅急变-所有用户</title>
+    </head>
+    <body>
+        <h1 style="background-color: antiquewhite;color: black;">魔宠宅急变-所有用户</h1>
+        <div align="center">
+            <table border="0" cellspacing="20">
+                <thread>
+                    <th>用户名</th>
+                    <th>密码</th>
+                </thread>
+                <tbody>
+                    {% for line in data %}
+                    <tr>
+                        <td>{{line.username}}</td>
+                        <td>{{line.password}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+
+        <div align="center">
+            <form action="/index/" method="GET">
+                <input type="submit" value="返回主页">
+            </form>
+        </div>
+    </body>
+
+</html>

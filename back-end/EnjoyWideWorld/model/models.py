@@ -23,7 +23,7 @@ class Position(models.Model):
     name = models.CharField(max_length = 32, null = True)   # Position name
     longitude = models.DecimalField(max_digits = 20, decimal_places = 15) # 经度
     latitude = models.DecimalField(max_digits = 20, decimal_places = 15) # 纬度
-    position_picture =  models.ImageField(upload_to='./position/', default = None) # 地点图片
+    position_picture =  models.ImageField(upload_to='./position/', default = None, null = True) # 地点图片
     description = models.TextField(default = "到此一游", null = True) # 地点简介
 
     # The item that the user obtains when checking in this position.
@@ -36,7 +36,7 @@ class Position(models.Model):
 class User(models.Model):
     wechatId = models.CharField(max_length = 32, primary_key = True) # 主键
 
-    # Many-to-one field to Pet. Related name: pets 
+    # Many-to-one field to Pet. Related name: pets
 
     # Many-to-may fields are linked to CheckInRecord
     checkInPositions = models.ManyToManyField(Position, through = "CheckInRecord")

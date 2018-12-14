@@ -2,26 +2,30 @@
 # ZHOU Kunpeng, 14 Dec 2018
 
 from model import models
+from math import *
 
-class GetPositionsAround:
+class GetPositionsAround():
     # params: longitude (float), latitude(float)
     # returns: a list of positions in (id, longitude, latitude) tuple
     #          i.e. w/type list<(int, float, float)>
-    def getPositionsAround(longitude, latitude):
+    def getPositionsAround(self, longitude, latitude):
         positionsAround = []
         positions = models.Position.objects.all()
+
         for position in positions:
             # within 2 km range
-            if _getDistance(longitude, latitude, position.longitude, position.latitude) <= 2:
-                positionsAround.append((position.id, position.longitude, position.latitude))
+            dist = self._getDistance(longitude, latitude, position.longitude, position.latitude)
+            if dist <= 2:
+                positionsAround.append([position.id, position.longitude, position.latitude])
 
-        return positions
+        print(positionsAround)
+        return positionsAround
 
 
     # params: two (longitude, latitude) points in float
     # returns: distance between them on earth
     # copied from https://stackoverflow.com/questions/19412462/getting-distance-between-two-points-based-on-latitude-longitude
-    def _getDistance(longitude1, latitude1, longitude2, latitude2):
+    def _getDistance(self, longitude1, latitude1, longitude2, latitude2):
         # approximate radius of earth in km
         R = 6373.0
 

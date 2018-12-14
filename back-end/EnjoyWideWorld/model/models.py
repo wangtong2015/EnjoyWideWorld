@@ -8,6 +8,7 @@ class Item(models.Model):
     id = models.AutoField(primary_key = True)  # Auto increment ID
     name = models.CharField(max_length = 32, null = True)    # Name
     description = models.TextField(null = True)    # Description
+    addExp = models.PositiveIntegerField(default = 0)   # 加经验值
     addHealth = models.PositiveIntegerField(default = 0) # 加生命值
     addAttack = models.PositiveIntegerField(default = 0) # 加攻击力
     addDefend = models.PositiveIntegerField(default = 0) # 加防御力
@@ -23,7 +24,7 @@ class Position(models.Model):
     name = models.CharField(max_length = 32, null = True)   # Position name
     longitude = models.DecimalField(max_digits = 20, decimal_places = 15) # 经度
     latitude = models.DecimalField(max_digits = 20, decimal_places = 15) # 纬度
-    position_picture =  models.ImageField(upload_to='./position/', default = None, null = True) # 地点图片
+    pictureAddr =  models.CharField(max_length = 256, null = True) # 地点图片地址
     description = models.TextField(default = "到此一游", null = True) # 地点简介
 
     # The item that the user obtains when checking in this position.

@@ -1,1 +1,44 @@
 /* pages/character/character.wxss */
+@import "../../lib/weui.wxss";
+
+.page {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+.characterName {
+  position: absolute;
+  width: 150rpx;
+  height: 150rpx;
+  left:50rpx;
+  top:100rpx;
+}
+
+.characterLevel {
+  position: absolute;
+  width: 80rpx;
+  height: 80rpx;
+  left:50rpx;
+  top:170rpx;
+  font-size:25rpx;
+  font-style: italic;
+}
+
+.experience {
+  position: absolute;
+  width: 650rpx;
+  height: 40rpx;
+  top:260rpx;
+  left:60rpx;
+
+}
+
+.characterImage {
+  width: 200px;
+  height: 200px;
+  right:100px;
+  bottom:100px;
+  background: rgba(0, 0, 0, 0.37);
+  position: fixed;
+}

@@ -1,2 +1,8 @@
 <!--pages/user/user.wxml-->
-<text>pages/user/user.wxml</text>
+<view class="page-body-info">
+    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}"></image>
+  <view class="buttoninfo">
+    <button bindtap="statement">声明</button>
+  </view>
+</view>

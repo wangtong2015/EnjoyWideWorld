@@ -27,8 +27,8 @@
     <!--弹窗暗背景-->
     <cover-view
       class="dark_cover"
-      style="opacity:{{opacity}}"
       hidden="{{my_modal_hidden}}"
+      bindtap='return_tap'
     ></cover-view>
 
     <!--marker点信息弹窗-->
@@ -39,9 +39,13 @@
       <cover-image
         class="explore_show_photo"
         src="{{explore_photo_path}}"
-        bindtap='return_tap'
       ></cover-image>
-      <cover-view class="explore_show_title">标题</cover-view>
+      <cover-view class="explore_show_line"></cover-view>
+      <cover-view class="explore_show_title">{{title}}</cover-view>
+      <cover-view class="explore_show_exp">EXP 经验值 ：{{exp}}</cover-view>
+      <cover-view class="explore_show_harvest">获取物品 ：{{harvest}}</cover-view>
+      <cover-view class="explore_show_description">--简介 ：{{description}}</cover-view>
+      <cover-view class="explore_show_go" bindtap='to_go'>出发</cover-view>
       </cover-view>
 
   </map>

@@ -15,7 +15,7 @@
   },
   "tabBar":{
     "color": "#000000",
-    "backgroundColor": "#aaaaaa",
+    "backgroundColor": "#eeeeee",
     "list": [
       {
         "pagePath": "pages/map/map",

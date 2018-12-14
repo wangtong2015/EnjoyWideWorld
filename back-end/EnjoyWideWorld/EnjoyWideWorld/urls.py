@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'userinfo/', views.userinfo),
     url(r'^map/test$', map.mapServlets.test),
     url(r'^map/getpositions$', map.mapServlets.getPositions),
+    url(r'^map/checkin$', map.mapServlets.checkIn),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

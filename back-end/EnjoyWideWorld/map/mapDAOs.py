@@ -4,11 +4,12 @@
 from model import models
 from math import *
 
+# Get all positions around 2km range centered at given point
 class GetPositionsAround():
     # params: longitude (float), latitude(float)
-    # returns: a list of positions in (id, longitude, latitude) tuple
-    #          i.e. w/type list<(int, float, float)>
+    # returns: a list of positions with their item information
     def getPositionsAround(self, longitude, latitude):
+
         positionsAround = []
         positions = models.Position.objects.all()
 
@@ -16,9 +17,9 @@ class GetPositionsAround():
             # within 2 km range
             dist = self._getDistance(longitude, latitude, position.longitude, position.latitude)
             if dist <= 2:
-                positionsAround.append([position.id, position.longitude, position.latitude])
+                # positionsAround.append([position.id, position.longitude, position.latitude, position])
+                positionsAround.append(position)
 
-        print(positionsAround)
         return positionsAround
 
 
@@ -43,3 +44,37 @@ class GetPositionsAround():
         distance = R * c
 
         return distance
+
+# A user checks in a given position
+class CheckIn():
+    # params: wechatId (string), positionId (int)
+    # returns: the item that applies its effect on user's pet.
+    def checkIn(self, wechatId, positionId):
+        # get user and position
+        user = models.User.objects.filter(wechatId = wechatId)[0]
+        position = models.Position.objects.filter(id = positionId)[0]
+
+        if user == None or position == None:
+            return None
+
+        # check if this place (position) has been checked in by this user
+        for position in user.checkInPositions.all():
+            if position.id == positionId:
+                return None
+
+        # Create a check-in record
+        checkInRecord = models.CheckInRecord.objects.create(user=user, point=position)
+
+        # Upgrade pet's ability
+        pet = user.pets.all()[0]
+        item = position.itemLinked
+
+        pet.experience += item.addExp
+        pet.health += item.addHealth
+        pet.attack += item.addAttack
+        pet.defend += item.addDefend
+        pet.speed += item.addSpeed
+        pet.dodgeRate += item.addDodgeRate
+        pet.save()
+
+        return item

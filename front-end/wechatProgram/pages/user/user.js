@@ -1,10 +1,13 @@
 // pages/user/user.js
+const app =getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    userInfo:{},
+    hasUserInfo: false
   },
 
   function () {
@@ -74,5 +77,11 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  getUserInfo: function(e){
+    console.log(e);
+    app.globalData.userInfo = e.detail.userInfo;
+  
   }
 })

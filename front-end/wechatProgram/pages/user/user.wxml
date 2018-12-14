@@ -3,6 +3,7 @@
     <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}"></image>
   <view class="buttoninfo">
+    <button open-type='getUserInfo' bindgetuserinfo='getUserInfo'>授权</button>
     <button bindtap="statement">声明</button>
   </view>
 </view>

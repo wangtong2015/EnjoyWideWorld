@@ -28,6 +28,9 @@ def getPositions(request):
         longitude = request.POST.get("longitude")
         latitude = request.POST.get("latitude")
 
+        print(longitude)
+        print(latitude)
+
         # execute query
         dao = mapDAOs.GetPositionsAround()
         positions = dao.getPositionsAround(float(longitude), float(latitude))

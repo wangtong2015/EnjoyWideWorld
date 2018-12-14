@@ -19,6 +19,7 @@ from userinfo import views
 import userinfo.models
 from . import settings
 from django.conf.urls.static import static
+import map.mapServlets
 
 
 urlpatterns = [
@@ -26,6 +27,8 @@ urlpatterns = [
     url(r'index/', views.index),
     url(r'register/', views.register),
     url(r'userinfo/', views.userinfo),
+    url(r'^map/test$', map.mapServlets.test),
+    url(r'^map/getpositions$', map.mapServlets.getPositions),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

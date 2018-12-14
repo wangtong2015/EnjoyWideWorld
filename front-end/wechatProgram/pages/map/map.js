@@ -30,12 +30,11 @@ Page({
       width: 25,
       height: 35
     }],
-    opacity:0.5,
     explore_photo_path: "/photos/1ed73edb52d890c4b589d56c5149c28f.jpg",
     title:"清华大学",
-    harvest:"铁剑",
+    harvest:"水晶",
     exp:10,
-    description:"清华大学（英语：Tsinghua University，缩写作 THU），简称清华，旧称清华学堂、清华学校、国立清华大学，是一所位于中华人民共和国北京市海淀区清华园的公立大学。始建于1911年，因北京西北郊清华园而得名[18]。初为清政府利用美国退还的部分庚子赔款所建留美预备学校“游美学务处”及附设“肄业馆”，于1925年始设大学部[19]。"
+    description:"清华大学（英语：Tsinghua University，缩写作 THU），简称清华，旧称清华学堂、清华学校、国立清华大学，是一所位于中华人民共和国北京市海淀区清华园的公立大学。始建于1911年，因北京西北郊清华园而得名。"
   },
 
 
@@ -124,7 +123,7 @@ Page({
 
   /*探索 */
   to_explore() {
-    console.log("探索")
+    console.log('探索')
     var that=this
     var marker_id=Math.floor(Math.random() * this.data.markers.length)
     this.move_to_marker(marker_id)
@@ -142,5 +141,10 @@ Page({
   onTabItemTap(item){
     this.setData({ scale: 16 })
     this.mapCtx.moveToLocation()
+  },
+
+  /*自动规划步行路线（需要改用高德地图API） */
+  to_go(){
+    console.log("改用高德API规划路线")
   }
 })

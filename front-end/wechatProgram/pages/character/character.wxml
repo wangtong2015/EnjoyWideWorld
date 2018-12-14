@@ -1,2 +1,26 @@
 <!--pages/character/character.wxml-->
-<text>pages/character/character.wxml</text>
+<view class="page">
+
+<text class="characterName">
+张三
+<!--{{page.characterName}}
+-->
+</text>
+
+<text class="characterLevel">
+Lv.999
+<!--{{page.characterLevel}}
+-->
+</text>
+
+<progress class="experience" percent="20" color="red" stroke-width="20" activeColor="red" backgroundColor="#ccc" >
+</progress>
+
+<cover-image 
+class="characterImage"
+src=''
+bindtap='to_act'
+></cover-image>
+
+
+</view>

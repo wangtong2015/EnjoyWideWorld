@@ -4,7 +4,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -12,7 +12,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.0.4",
-	"appid": "wx7fcf4e806c0d5365",
+	"appid": "wx8b58e8733e298e2a",
 	"projectname": "EnjoyWideWorld",
 	"debugOptions": {
 		"hidedInDevtools": []

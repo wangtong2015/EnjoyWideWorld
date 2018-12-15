@@ -41,7 +41,6 @@ Page({
   /*onLoad */
   onLoad: function (options) {
     var that = this;
-    //var Util = require('../../utils/util.js');
     wx.showLoading({
       title: '加载中',
     })
@@ -55,6 +54,7 @@ Page({
         wx.hideLoading();
       }
     })
+    
     wx.request({
       /*url: 'http://wangtong15.com:20000/map/getlocations', // 仅为示例，并非真实的接口地址*/
       url: 'http://127.0.0.1:8000/map/getpositions', // 仅为示例，并非真实的接口地址
@@ -69,7 +69,8 @@ Page({
       success(res) {
         console.log(res.data)
       }
-    })   
+    })  
+    
   },
 
   /*从服务器获取地点数据*/

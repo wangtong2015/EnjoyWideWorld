@@ -1,4 +1,6 @@
 // pages/map/map.js
+/*var the_url: 'http://wangtong15.com:20000/map/getlocations'*/
+var the_url ='http://127.0.0.1:8000/map'
 Page({
   data: {
     latitude: 39.958119466670300,
@@ -56,8 +58,7 @@ Page({
     })
     
     wx.request({
-      /*url: 'http://wangtong15.com:20000/map/getlocations', // 仅为示例，并非真实的接口地址*/
-      url: 'http://127.0.0.1:8000/map/getpositions', // 仅为示例，并非真实的接口地址
+      url: the_url+'/getpositions', // 仅为示例，并非真实的接口地址
       data: {
         latitude: this.data.latitude,
         longitude:this.data.longitude

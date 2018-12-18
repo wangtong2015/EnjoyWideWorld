@@ -19,7 +19,9 @@ from userinfo import views
 import userinfo.models
 from . import settings
 from django.conf.urls.static import static
-import map.mapServlets
+from controller.map import mapServlets
+from controller.pet import petServlets
+from controller.community import communityServlets
 
 
 urlpatterns = [
@@ -27,9 +29,11 @@ urlpatterns = [
     url(r'index/', views.index),
     url(r'register/', views.register),
     url(r'userinfo/', views.userinfo),
-    url(r'^map/test$', map.mapServlets.test),
-    url(r'^map/getpositions$', map.mapServlets.getPositions),
-    url(r'^map/checkin$', map.mapServlets.checkIn),
+    url(r'^map/test$', mapServlets.test),
+    url(r'^map/getpositions$', mapServlets.getPositions),
+    url(r'^map/checkin$', mapServlets.checkIn),
+    url(r'^pet/petinfo$', petServlets.getPetInfo),
+    url(r'^community/friendsinfo$', communityServlets.getFriendsInfo),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

@@ -58,6 +58,8 @@ class Pet(models.Model):
     name = models.CharField(max_length = 32)    # 昵称
     experience = models.PositiveIntegerField(default = 0) # 经验值
 
+    appearanceId = models.PositiveIntegerField(default = 0) # 角色形象编号（由客户端编写者决定具体格式）
+
     health = models.PositiveIntegerField(default = 0) # 生命值
     attack = models.PositiveIntegerField(default = 0) # 攻击力
     defend = models.PositiveIntegerField(default = 0) # 防御力

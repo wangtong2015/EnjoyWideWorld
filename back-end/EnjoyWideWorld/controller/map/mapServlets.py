@@ -7,7 +7,7 @@ from . import mapDAOs
 import json
 
 def test(request):
-    return HttpResponse("Boun giorno!")
+    return HttpResponse("Buon giorno!")
 
 # servlet for map/getpositions
 # request: POST w/form params
@@ -46,8 +46,8 @@ def getPositions(request):
 
     except Exception as e:
         resp['length'] = 0
-        resp['error'] = e.message
-        print(e.message)
+        resp['error'] = str(e)
+        print(e)
 
     finally:
         # pack up json and return
@@ -90,8 +90,8 @@ def checkIn(request):
 
     except Exception as e:
         resp['success'] = 0
-        resp['error'] = e.message
-        print(e.message)
+        resp['error'] = str(e)
+        print(e)
 
     finally:
         # pack up json and return

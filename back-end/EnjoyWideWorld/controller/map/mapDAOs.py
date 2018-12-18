@@ -10,6 +10,7 @@ class GetPositionsAround():
     # returns: a list of positions with their item information
     def getPositionsAround(self, longitude, latitude):
 
+        # Range of the circle (only get positions within range)
         RANGE = 2
 
         positionsAround = []

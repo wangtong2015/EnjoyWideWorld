@@ -43,6 +43,7 @@ def getPositions(request):
             resp['lon' + str(i)] = str(positions[i].longitude)
             resp['picaddr' + str(i)] = str(positions[i].pictureAddr)
             resp['description' + str(i)] = str(positions[i].description)
+            resp['itemName' + str(i)] = str(positions[i].itemLinked.name)
 
     except Exception as e:
         resp['length'] = 0

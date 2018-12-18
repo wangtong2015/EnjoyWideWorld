@@ -83,8 +83,8 @@
   position: absolute;
   left: 20rpx;
   right: 20rpx;
-  bottom: 90rpx;
-  font-size: medium;
+  bottom: 120rpx;
+  font-size: small;
   white-space: normal
 }
 .explore_show_go{

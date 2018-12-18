@@ -77,14 +77,13 @@ Page({
             latitude: res.data["lat" + i],
             longitude: res.data["lon" + i],
             description: res.data["description" + i],
-            //item_linked: res.data["" + i],
+            item_linked: res.data["itemName" + i],
             picaddr: res.data["picaddr" + i],
             width: 25,
             height: 90
             }
         }
         that.setData({markers:markers})
-        console.log(res)
       }
     })
 
@@ -153,7 +152,10 @@ Page({
     this.move_to_marker(marker_index)
     //console.log(this.data.markers[marker_index])
     
-    this.setData({ description: this.data.markers[marker_index]['description'] })
+    this.setData({ 
+      description: this.data.markers[marker_index]['description'],
+      item_linked: this.data.markers[marker_index]['item_linked']
+     })
     setTimeout(function () {
       that.show_markerinfo_page(marker_index)
     }, 500)
@@ -189,7 +191,10 @@ Page({
     var that =this
     var marker_index=Math.floor(Math.random() * this.data.markers.length)
     this.move_to_marker(marker_index)
-    this.setData({ description: this.data.markers[marker_index]['description']})
+    this.setData({ 
+      description: this.data.markers[marker_index]['description'],
+      item_linked: this.data.markers[marker_index]['item_linked']
+      })
     setTimeout(function () {
       that.show_markerinfo_page(marker_index)
     }, 500)

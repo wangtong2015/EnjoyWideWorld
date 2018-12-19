@@ -34,6 +34,7 @@ urlpatterns = [
     url(r'^map/checkin$', mapServlets.checkIn),
     url(r'^pet/petinfo$', petServlets.getPetInfo),
     url(r'^community/friendsinfo$', communityServlets.getFriendsInfo),
+    url(r'^community/like$', communityServlets.likeDelike),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

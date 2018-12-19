@@ -58,3 +58,53 @@ def getFriendsInfo(request):
     finally:
         # pack up json and return
         return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+# servlet for community/like
+# request: POST w/form params
+#   user (string) indicates the wechat id of the user who's sending request
+#   friend (string) indicates the user who's being liked / canceled like
+#   type (int) indicates the operation. 1=like, 0=delike
+# response: json
+#   performed (int): 1=success, 0=has been liked or deliked before
+#   (NOTE success is still 1 if performed = 0. All other errors will cause success=0. )
+def likeDelike(request):
+    resp = {}
+    resp['success'] = 1
+
+    try:
+        if(request.method != "POST"):
+            raise Exception("ERROR: request should use POST")
+
+        # get user wechat id from request
+        user = request.POST.get("user")
+        if user == "" :
+            raise Exception("ERROR: empty user id")
+
+        # get the one being liked from request
+        friend = request.POST.get("friend")
+        if friend == "":
+            raise Exception("ERROR: empty friend id")
+
+        typeStr = request.POST.get("type")
+        if typeStr == "1":
+            type = 1
+        else:
+            type = 0
+
+        # perform like
+        dao = communityDAOs.LikeDelike()
+        result = dao.likeDelike(user, friend, type)
+        if result:
+            resp['performed'] = 1
+        else:
+            resp['performed'] = 0
+
+    except Exception as e:
+        resp['success'] = 0
+        resp['error'] = str(e)
+        print(e)
+
+    finally:
+        # pack up json and return
+        return HttpResponse(json.dumps(resp), content_type="application/json")

@@ -51,3 +51,45 @@ class GetFriendsInfo():
             result.append(friendInfo)
 
         return result
+
+
+
+# perform like or cancel like
+class LikeDelike():
+
+    # find a user with given wechat id. Raise Exception if not found
+    def _queryUser(self, userId):
+        queryResult = models.User.objects.filter(wechatId = userId)
+        if len(queryResult) == 0:
+            raise Exception("invalid user name: " + userId)
+        return queryResult[0]
+
+    # Do a like (type = 1) / cancel like (delike) (type = 0)
+    # params: userFromId (wechat id, string) userToId (wechat id, string)
+    # returns: True if perform success,
+    #   False if the user tries to like someone he/she has liked
+    #                           or delike someone he/she has not liked
+    # (if other things go wrong, raise Exception)
+    def likeDelike(self, userFromId, userToId, type):
+        userFrom = self._queryUser(userFromId)
+        userTo = self._queryUser(userToId)
+
+        # find potential like record: None if not found
+        likeRecordQueryResult = models.LikeRecord.objects.filter(userFrom = userFrom, userTo = userTo)
+        if len(likeRecordQueryResult) > 0:
+            likeRecord = likeRecordQueryResult[0]
+        else:
+            likeRecord = None
+
+        if type > 0: # like
+            if likeRecord != None:  # has liked before: failed to perform
+                return False
+            likeRecord = models.LikeRecord(userFrom = userFrom, userTo = userTo)
+            likeRecord.save()
+
+        else:   # delike
+            if likeRecord == None:  # has never liked before: failed to perform
+                return False
+            likeRecord.delete()
+
+        return True

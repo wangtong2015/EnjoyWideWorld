@@ -76,6 +76,7 @@ Page({
         {
           markers[i] = {
             iconPath: "/figs/location.png",
+            name: res.data["name" + i],
             id: i,    //本地编号
             index: res.data["id" + i],    //服务器上的编号
             latitude: res.data["lat" + i],
@@ -110,7 +111,7 @@ Page({
       }
     })
     /*从服务器加载positions */
-    //this.getpositons();
+    this.getpositons();
     
   },
 

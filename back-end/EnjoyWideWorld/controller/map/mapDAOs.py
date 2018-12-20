@@ -48,6 +48,20 @@ class GetPositionsAround():
 
         return distance
 
+# Get all positions on map
+class GetAllPositions():
+    # params: longitude (float), latitude(float)
+    # returns: a list of positions with their item information
+    def getAllPositions(self):
+
+        positionsRet = []
+        positions = models.Position.objects.all()
+
+        for position in positions:
+            positionsRet.append(position)
+
+        return positionsRet
+
 # A user checks in a given position
 class CheckIn():
     # params: wechatId (string), positionId (int)

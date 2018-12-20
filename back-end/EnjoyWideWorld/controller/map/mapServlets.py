@@ -3,7 +3,7 @@
 # ZHOU Kunpeng, 14 Dec 2018
 
 from django.http import HttpResponse
-from . import mapDAOs
+from controller.map import mapDAOs
 import json
 
 def test(request):
@@ -25,20 +25,20 @@ def getPositions(request):
         if(request.method != "POST"):
             raise Exception("ERROR: request should use POST")
 
-        longitude = request.POST.get("longitude")
-        latitude = request.POST.get("latitude")
-
-        print(longitude)
-        print(latitude)
+        # longitude = request.POST.get("longitude")
+        # latitude = request.POST.get("latitude")
 
         # execute query
-        dao = mapDAOs.GetPositionsAround()
-        positions = dao.getPositionsAround(float(longitude), float(latitude))
+        dao = mapDAOs.GetAllPositions()
+        positions = dao.getAllPositions()
+        # dao = mapDAOs.GetPositionsAround()
+        # positions = dao.getPositionsAround(float(longitude), float(latitude))
 
         # format
         resp['length'] = len(positions)
         for i in range(len(positions)):
             resp['id' + str(i)] = str(positions[i].id)
+            resp['name' + str(i)] = str(positions[i].name)
             resp['lat' + str(i)] = str(positions[i].latitude)
             resp['lon' + str(i)] = str(positions[i].longitude)
             resp['picaddr' + str(i)] = str(positions[i].pictureAddr)

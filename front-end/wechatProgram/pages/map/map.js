@@ -1,11 +1,12 @@
 // pages/map/map.js
+
 const app = getApp()
 var the_url= 'http://wangtong15.com:20000/map'
 /*var the_url ='http://127.0.0.1:8000/map'*/
 
 
-
 Page({
+  /*data */
   data: {
     latitude: 39.958119466670300,
     longitude: 116.298038013743000,
@@ -54,7 +55,11 @@ Page({
     item_linked:"",
     exp:10,
     description:""
+    description:"",
+    userInfo: null
   },
+
+
 
   /*onLoad */
   onLoad: function (options) {
@@ -74,15 +79,13 @@ Page({
         wx.hideLoading();
       }
     })
-    /*从服务器加载positions */
-    this.getpositons();
+    this.getpositons();    //从服务器加载positions
   },
   
   /*onReady */
   onReady: function (e) {
     this.mapCtx=wx.createMapContext("my_map")
     wx.getFileSystemManager()
-    //this.get_marker_data()  
   },
 
 
@@ -91,11 +94,7 @@ Page({
   markertap(e) {
     var that=this
     var marker_index=e.markerId
-    //console.log(e)
-    //console.log(marker_index)
     this.move_to_marker(marker_index)
-    //console.log(this.data.markers[marker_index])
-    
     this.setData({ 
       description: this.data.markers[marker_index]['description'],
       item_linked: this.data.markers[marker_index]['item_linked']
@@ -119,24 +118,8 @@ Page({
     var length = this.data.markers.length
     var lat, lng
     var checkinpoint = null
-    if (app.globalData.userInfo == null) {
-      wx.showToast({
-        title: '请授权',
-        icon: 'loading',
-        duration: 1000,
-        mask: false,
-        success: (res)=>{
-          setTimeout(function () {
-            wx.switchTab({
-              url: '/pages/user/user'
-            })
-          }, 500)
-          
-        }
-      })
-      
-    }
-    else {
+    this.check_auth_status()
+    if (this.data.userInfo != null) {
       //找到最近marker点，判断距离小于10米则打卡
       for (var i = 0; i < length; i++) {
         lat = this.data.markers[i]['latitude']
@@ -166,7 +149,7 @@ Page({
         })
       }
     }
-    //this.getpositons();
+
   },
 
   /*探索 */
@@ -182,6 +165,40 @@ Page({
     setTimeout(function () {
       that.show_markerinfo_page(marker_index)
     }, 500)
+  },
+
+  /*检查授权状态 */
+  check_auth_status: function(){
+    var that = this
+    wx.getSetting({
+      success(res) {
+        if (!res.authSetting['scope.userInfo']) {
+          wx.showToast({
+            title: '请授权',
+            icon: 'loading',
+            duration: 1000,
+            mask: false,
+            success: (res) => {
+              setTimeout(function () {
+                wx.switchTab({
+                  url: '/pages/user/user'
+                })
+              }, 500)
+            }
+          })
+        }
+        else {
+          wx.getUserInfo({
+            success: function (res) {
+              console.log(res)
+              that.setData({
+                userInfo: res.userInfo
+              })
+            }
+          })
+        }
+      }
+    })
   },
 
   /*从服务器获取地点数据*/

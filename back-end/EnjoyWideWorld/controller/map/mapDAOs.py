@@ -62,9 +62,9 @@ class CheckIn():
             return None
 
         # check if this place (position) has been checked in by this user
-        for position in user.checkInPositions.all():
-            if position.id == positionId:
-                return None
+        checkInQuery = models.CheckInRecord.objects.filter(user=user, point=position)
+        if len(checkInQuery) != 0:
+            return None
 
         # Create a check-in record
         checkInRecord = models.CheckInRecord.objects.create(user=user, point=position)

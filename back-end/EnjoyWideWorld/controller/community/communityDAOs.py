@@ -5,12 +5,58 @@
 from model import models
 from controller import utils
 
+# Get all users around R km range centered at given point 
+#   or user's last location (if longitude & latitude not provided)
+class GetNearbyInfo():
+    def getNearbyInfo(self, userId, longitude = float('NaN'), latitude = float('NaN')):
+
+        R = 1.5 # (maximum range measured in km)
+
+        user = models.User.objects.get(wechatId = userId)
+
+        # lon & lat optional; if not provided, use user's last location instead
+        if longitude == float('NaN'):
+            longitude = user.lastLongitude
+        if latitude == float('NaN'):
+            latitude = user.lastLatitude
+
+        # iterate through all users
+        allUsers = models.User.objects.all()
+        result = []
+        for friend in allUsers:
+            # skip user himself/herself
+            if friend.wechatId == user.wechatId:
+                continue
+            
+            # dist <= R?
+            dist = utils.getDistance(longitude, latitude, friend.lastLongitude, friend.lastLatitude)
+            if dist <= R:
+                # find pet
+                pet = models.Pet.objects.get(master = friend)
+                # find like record; record exist -> user has liked him/her
+                likeQueryResult = models.LikeRecord.objects.filter(userFrom = user, userTo = friend)
+                if len(likeQueryResult) != 0:
+                    like = 1
+                else:
+                    like = 0
+                dict = {'name': friend.wechatId, 'exp' : pet.experience, 'isLiked' : like}
+                result.append(dict)
+        
+        return result
+
+
+# Deprecated
 # Get all users with most recent location within (longitude,latitude)'s R km range
 class GerUsersNearby():
     # params: user (string, wechat id), longitude(float), latitude(float), R=1.5(float, range in km)
-    def getUsersNearby(self, userId, longitude, latitude, R = 1.5):
+    def getUsersNearby(self, userId, longitude = float('NaN'), latitude = float('NaN'), R = 1.5):
 
         user = models.User.objects.get(wechatId = userId)
+
+        if longitude == float('NaN'):
+            longitude = user.lastLongitude
+        if latitude == float('NaN'):
+            latitude = user.lastLatitude
 
         allUsers = models.User.objects.all()
         result = []
@@ -18,12 +64,13 @@ class GerUsersNearby():
             if u.wechatId == user.wechatId:
                 continue
             dist = utils.getDistance(longitude, latitude, u.lastLongitude, u.lastLatitude)
-            print(dist)
             if dist <= R:
                 result.append(u.wechatId)
         
         return result 
 
+# Deprecated
+# Issue: we can't get user anymore once queried in another DAO. (Why?)
 # Get all positions around 2km range centered at given point
 class GetFriendsInfo():
     # params: user (string, wechat id), friends(list of strings, wechat id)

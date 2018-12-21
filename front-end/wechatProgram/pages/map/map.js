@@ -54,7 +54,6 @@ Page({
     title:"清华大学",
     item_linked:"",
     exp:10,
-    description:""
     description:"",
     userInfo: null
   },

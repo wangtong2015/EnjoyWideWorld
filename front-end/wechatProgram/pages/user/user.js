@@ -83,13 +83,5 @@ Page({
     console.log(e);
     app.globalData.userInfo = e.detail.userInfo;
   
-  },
-
-  statement: function (e) {
-    wx.showModal({
-      title: '提示',
-      content: '网站：https://github.com/wangtong2015/EnjoyWideWorld',
-      showCancel: false,
-    })
   }
 })

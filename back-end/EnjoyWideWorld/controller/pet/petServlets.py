@@ -3,7 +3,7 @@
 # ZHOU Kunpeng, 18 Dec 2018
 
 from django.http import HttpResponse
-from . import petDAOs
+from controller.pet import petDAOs
 import json
 
 # servlet for pet/petinfo
@@ -30,6 +30,7 @@ def getPetInfo(request):
         else:
             raise Exception("ERROR: illegal request method")
 
+        # require wechat id 
         if wxid == "":
             raise Exception("ERROR: empty wechat id")
 

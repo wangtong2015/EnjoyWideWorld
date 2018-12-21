@@ -10,7 +10,10 @@ def test(request):
     return HttpResponse("Buon giorno!")
 
 # servlet for map/getpositions
+# Modified 21 Dec 2018: now returns all positions exist in the database, 
+#   and update user's latest location into server.
 # request: POST w/form params
+#   wechatId (string)
 #   longitude (float)
 #   latitude (float)
 # response: json
@@ -20,6 +23,7 @@ def test(request):
 #      where x in range [0, length).
 def getPositions(request):
     resp = {}
+    resp['success'] = 1
 
     try:
         if(request.method != "POST"):
@@ -34,6 +38,14 @@ def getPositions(request):
         # dao = mapDAOs.GetPositionsAround()
         # positions = dao.getPositionsAround(float(longitude), float(latitude))
 
+        # If contains wechatid, lon & lat, update user's latest location
+        userId = request.POST.get("wechatId")
+        longitude = request.POST.get("longitude", "")
+        latitude = request.POST.get("latitude", "")
+        if userId != "" and longitude != "" and latitude != "":
+            updateDao = mapDAOs.UpdateUserLocation()
+            updateDao.updateUserLocation(userId, float(longitude), float(latitude))
+
         # format
         resp['length'] = len(positions)
         for i in range(len(positions)):
@@ -46,6 +58,7 @@ def getPositions(request):
             resp['itemName' + str(i)] = str(positions[i].itemLinked.name)
 
     except Exception as e:
+        resp['success'] = 0
         resp['length'] = 0
         resp['error'] = str(e)
         print(e)

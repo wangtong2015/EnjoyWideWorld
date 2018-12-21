@@ -1,9 +1,28 @@
 # This file includes all data-access objects
 # in global use-case 'community'.
-# ZHOU Kunpeng, 18 Dec 2018
+# ZHOU Kunpeng, 21 Dec 2018
 
 from model import models
-from math import *
+from controller import utils
+
+# Get all users with most recent location within (longitude,latitude)'s R km range
+class GerUsersNearby():
+    # params: user (string, wechat id), longitude(float), latitude(float), R=1.5(float, range in km)
+    def getUsersNearby(self, userId, longitude, latitude, R = 1.5):
+
+        user = models.User.objects.get(wechatId = userId)
+
+        allUsers = models.User.objects.all()
+        result = []
+        for u in allUsers:
+            if u.wechatId == user.wechatId:
+                continue
+            dist = utils.getDistance(longitude, latitude, u.lastLongitude, u.lastLatitude)
+            print(dist)
+            if dist <= R:
+                result.append(u.wechatId)
+        
+        return result 
 
 # Get all positions around 2km range centered at given point
 class GetFriendsInfo():

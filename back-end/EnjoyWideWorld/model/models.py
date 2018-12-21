@@ -37,6 +37,10 @@ class Position(models.Model):
 class User(models.Model):
     wechatId = models.CharField(max_length = 32, primary_key = True) # 主键
 
+    # default value of lon&lat is at the center of Tsinghua U
+    lastLongitude = models.DecimalField(max_digits = 20, decimal_places = 15, default = 40.0) # 经度
+    lastLatitude = models.DecimalField(max_digits = 20, decimal_places = 15, default = 116.3) # 纬度
+
     # Many-to-one field to Pet. Related name: pets
 
     # Many-to-may fields are linked to CheckInRecord

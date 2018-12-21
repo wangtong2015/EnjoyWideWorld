@@ -6,6 +6,7 @@
 }
 .userinfo-avatar {
   position: fixed;
+  top: 50rpx;
   width: 256rpx;
   height: 256rpx;
   right: 20rpx;
@@ -13,13 +14,26 @@
 }
 .userinfo-nickname {
   position: fixed;
-  top: 100rpx;
+  top: 150rpx;
   left: 50rpx;
   font-size: xx-large;
   color: #aaa;
 }
 .buttoninfo {
   position: fixed;
-  bottom: 100rpx;
+  bottom: 300rpx;
   width: 500rpx;  
+}
+.statement {
+  position: fixed;
+  bottom: 180rpx;
+  align-items: center;
+  justify-content: center;
+}
+.statementText {
+  position: fixed;
+  font-size: 28rpx;
+  word-break: break-all;
+  bottom: 50rpx;
+  left: 30rpx;
 }

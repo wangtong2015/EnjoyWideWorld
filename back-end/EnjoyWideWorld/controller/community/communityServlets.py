@@ -1,10 +1,63 @@
 # This file includes all funtions handling HttpRequests
 # in global usecase 'community'.
-# ZHOU Kunpeng, 18 Dec 2018
+# ZHOU Kunpeng, 21 Dec 2018
 
 from django.http import HttpResponse
-from . import communityDAOs
+from controller.community import communityDAOs
+from controller.map import mapDAOs
 import json
+
+# servlet for community/usersnearby
+# request: POST w/form params
+#   user (string) indicates the wechat id of the user who's sending request
+#   longitude (float) & latitude (float) indicates user's current location
+# response: json
+#   length (int) indicates the length of valid users within R radius
+#   userx (string) is the wechat id of xth user
+def getUsersNearby(request):
+    resp = {}
+    resp['success'] = 1
+
+    try:
+        resp['length'] = 0
+
+        if(request.method != "POST"):
+            raise Exception("ERROR: request should use POST")
+
+        # get user wechat id from request
+        user = request.POST.get("user")
+        if user == "" :
+            raise Exception("ERROR: empty user id")
+
+        # get longitude and latutude 
+        longitudeStr = request.POST.get("longitude")
+        latitudeStr = request.POST.get("latitude")
+        if longitudeStr == "" or latitudeStr == "" :
+            raise Exception("ERROR: empty longitude or latitude")
+        longitude = float(longitudeStr)
+        latitude = float(latitudeStr)
+
+        # query
+        R = 1.5     # Range in km
+        result = communityDAOs.GerUsersNearby().getUsersNearby(user, longitude, latitude, R)
+
+        # update last location
+        mapDAOs.UpdateUserLocation().updateUserLocation(user, longitude, latitude)
+
+        # format output
+        resp['length'] = len(result)
+        for i in range(len(result)):
+            resp['user' + str(i)] = result[i]
+
+    except Exception as e:
+        resp['success'] = 0
+        resp['error'] = str(e)
+        print(e)
+
+    finally:
+        # pack up json and return
+        return HttpResponse(json.dumps(resp), content_type="application/json")
+
 
 # servlet for community/friendsinfo
 # request: POST w/form params
@@ -51,7 +104,7 @@ def getFriendsInfo(request):
                 resp['isLiked' + str(i)] = str(friendsInfo[i]['isLiked'])
 
     except Exception as e:
-        resp['length'] = 0
+        resp['success'] = 0
         resp['error'] = str(e)
         print(e)
 

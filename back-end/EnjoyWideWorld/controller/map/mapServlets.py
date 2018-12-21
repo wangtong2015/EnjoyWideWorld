@@ -3,14 +3,17 @@
 # ZHOU Kunpeng, 14 Dec 2018
 
 from django.http import HttpResponse
-from . import mapDAOs
+from controller.map import mapDAOs
 import json
 
 def test(request):
     return HttpResponse("Buon giorno!")
 
 # servlet for map/getpositions
+# Modified 21 Dec 2018: now returns all positions exist in the database, 
+#   and update user's latest location into server.
 # request: POST w/form params
+#   wechatId (string)
 #   longitude (float)
 #   latitude (float)
 # response: json
@@ -20,25 +23,34 @@ def test(request):
 #      where x in range [0, length).
 def getPositions(request):
     resp = {}
+    resp['success'] = 1
 
     try:
         if(request.method != "POST"):
             raise Exception("ERROR: request should use POST")
 
-        longitude = request.POST.get("longitude")
-        latitude = request.POST.get("latitude")
-
-        print(longitude)
-        print(latitude)
+        # longitude = request.POST.get("longitude")
+        # latitude = request.POST.get("latitude")
 
         # execute query
-        dao = mapDAOs.GetPositionsAround()
-        positions = dao.getPositionsAround(float(longitude), float(latitude))
+        dao = mapDAOs.GetAllPositions()
+        positions = dao.getAllPositions()
+        # dao = mapDAOs.GetPositionsAround()
+        # positions = dao.getPositionsAround(float(longitude), float(latitude))
+
+        # If contains wechatid, lon & lat, update user's latest location
+        userId = request.POST.get("wechatId")
+        longitude = request.POST.get("longitude", "")
+        latitude = request.POST.get("latitude", "")
+        if userId != "" and longitude != "" and latitude != "":
+            updateDao = mapDAOs.UpdateUserLocation()
+            updateDao.updateUserLocation(userId, float(longitude), float(latitude))
 
         # format
         resp['length'] = len(positions)
         for i in range(len(positions)):
             resp['id' + str(i)] = str(positions[i].id)
+            resp['name' + str(i)] = str(positions[i].name)
             resp['lat' + str(i)] = str(positions[i].latitude)
             resp['lon' + str(i)] = str(positions[i].longitude)
             resp['picaddr' + str(i)] = str(positions[i].pictureAddr)
@@ -46,6 +58,7 @@ def getPositions(request):
             resp['itemName' + str(i)] = str(positions[i].itemLinked.name)
 
     except Exception as e:
+        resp['success'] = 0
         resp['length'] = 0
         resp['error'] = str(e)
         print(e)

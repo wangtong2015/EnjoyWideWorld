@@ -1,66 +1,44 @@
-// pages/character/character.js
+// pages/user/user.js
+const app = getApp()
+/*var the_url = 'http://wangtong15.com:20000/map'*/
+/*var the_url ='http://127.0.0.1:8000/map'*/
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    userCharacter: {},
+    userCharacterName:"Zhangsan",
+    userCharacterLevel:"999",
+    audioSrc:"audio/characterAudio.mp3",
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
+  /*onLoad */
   onLoad: function (options) {
-
+    var that = this;
+    wx.showLoading({
+      title: '加载中',
+    }),
+    this.setData({
+      userCharacterName:"Lisi",
+      userCharacterLevel:"88",
+      audioSrc: "audio/characterAudio.mp3",
+    }),
+    wx.hideLoading();
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  /*onReady */
+  onReady: function (e) {
+    //wx.getFileSystemManager()
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
+  /*角色触摸反响 */
+  to_act() {
+    console.log('角色触摸反响')
+    this.audioCtx.play()
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
 
-  },
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })

@@ -2,14 +2,15 @@
 <view class="page">
 
 <text class="characterName">
-张三
+{{userCharacterName}}
 <!--{{page.characterName}}
 -->
 </text>
 
 <text class="characterLevel">
-Lv.999
+Lv. {{userCharacterLevel}}
 <!--{{page.characterLevel}}
+
 -->
 </text>
 
@@ -20,7 +21,9 @@ Lv.999
 class="characterImage"
 src=''
 bindtap='to_act'
-></cover-image>
-
+>
+</cover-image>
+<audio class="audio" src="{{audioSrc}}"  controls="false" loop="false">
+</audio>
 
 </view>

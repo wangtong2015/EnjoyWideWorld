@@ -1,6 +1,6 @@
 // pages/map/map.js
 
-const app = getApp()
+var app = getApp()
 var the_url= 'http://wangtong15.com:20000/map'
 /*var the_url ='http://127.0.0.1:8000/map'*/
 
@@ -42,8 +42,8 @@ Page({
       iconPath: "/figs/location.png",
       id: 2,
       index: 12,
-      latitude: 39.949526696601716,
-      longitude: 116.30325651855469,
+      latitude: 39.95933,
+      longitude: 116.29845,
       width: 25,
       height: 90,
       description: "id=2",
@@ -85,6 +85,7 @@ Page({
   onReady: function (e) {
     this.mapCtx=wx.createMapContext("my_map")
     wx.getFileSystemManager()
+    this.check_auth_status()
   },
 
 
@@ -117,8 +118,7 @@ Page({
     var length = this.data.markers.length
     var lat, lng
     var checkinpoint = null
-    this.check_auth_status()
-    if (this.data.userInfo != null) {
+    if (app.globalData.userInfo != null) {
       //找到最近marker点，判断距离小于10米则打卡
       for (var i = 0; i < length; i++) {
         lat = this.data.markers[i]['latitude']
@@ -130,7 +130,7 @@ Page({
           url: the_url + '/checkin', // 仅为示例，并非真实的接口地址
           data: {
             wechatId: null,
-            positionId: checkinpoint
+            positionId: this.data.markers[checkinpoint]['index']
           },
           header: {
             'content-type': 'application/x-www-form-urlencoded' // 默认值
@@ -148,7 +148,9 @@ Page({
         })
       }
     }
-
+    else{
+      this.check_auth_status()
+    }
   },
 
   /*探索 */
@@ -180,7 +182,7 @@ Page({
             success: (res) => {
               setTimeout(function () {
                 wx.switchTab({
-                  url: '/pages/user/user'
+                  url: '/pages/user/user',
                 })
               }, 500)
             }
@@ -189,10 +191,10 @@ Page({
         else {
           wx.getUserInfo({
             success: function (res) {
-              console.log(res)
               that.setData({
                 userInfo: res.userInfo
               })
+              app.globalData.userInfo= res.userInfo
             }
           })
         }

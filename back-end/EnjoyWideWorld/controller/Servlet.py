@@ -2,7 +2,7 @@
 # in this abstract class.
 # ZHOU Kunpeng, 22 Dec 2018
 
-from django.http import HttpResponse
+from django.http import JsonResponse
 import json
 
 # Usage:
@@ -43,7 +43,7 @@ class AttribServlet():
             print(e)
 
         # pack up json and return
-        return HttpResponse(json.dumps(response), content_type="application/json")
+        return JsonResponse(response)
 
     # request: a dictionary containing all informations sent by client
     #   NOTE should use request.get('xxx') to read attributes. 

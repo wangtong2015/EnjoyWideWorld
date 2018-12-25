@@ -152,10 +152,14 @@ class LikeDelike():
                 return False
             likeRecord = models.LikeRecord(userFrom = userFrom, userTo = userTo)
             likeRecord.save()
+            userTo.totalLikes += 1
+            userTo.save()
 
         else:   # delike
             if likeRecord == None:  # has never liked before: failed to perform
                 return False
             likeRecord.delete()
+            userTo.totalLikes -= 1
+            userTo.save()
 
         return True

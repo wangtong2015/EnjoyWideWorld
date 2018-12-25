@@ -37,6 +37,8 @@ class Position(models.Model):
 class User(models.Model):
     wechatId = models.CharField(max_length = 32, primary_key = True) # 主键
 
+    totalLikes = models.PositiveIntegerField(default = 0)   # 获得的总赞数
+
     # default value of lon&lat is at the center of Tsinghua U
     lastLongitude = models.DecimalField(max_digits = 20, decimal_places = 15, default = 40.0) # 经度
     lastLatitude = models.DecimalField(max_digits = 20, decimal_places = 15, default = 116.3) # 纬度

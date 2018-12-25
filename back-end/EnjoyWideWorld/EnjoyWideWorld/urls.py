@@ -14,21 +14,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from django.contrib import admin
-from userinfo import views
-import userinfo.models
-from . import settings
 from django.conf.urls.static import static
+from django.contrib import admin
+
+from controller.community import communityServlets
 from controller.map import mapServlets
 from controller.pet import petServlets
-from controller.community import communityServlets
 
+from . import settings
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'index/', views.index),
-    url(r'register/', views.register),
-    url(r'userinfo/', views.userinfo),
     url(r'^map/test$', mapServlets.test),
     url(r'^map/getpositions$', mapServlets.getPositions),
     url(r'^map/checkin$', mapServlets.checkIn),

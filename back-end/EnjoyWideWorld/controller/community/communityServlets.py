@@ -30,8 +30,8 @@ class GetNearbyInfoServlet(servlet.AttribServlet):
 
         # get longitude and latutude 
         # 22 Dec 2018: now it is optional
-        longitudeStr = request.get("longitude")
-        latitudeStr = request.get("latitude")
+        longitudeStr = request.get("longitude", "")
+        latitudeStr = request.get("latitude", "")
         if longitudeStr == "" or latitudeStr == "" :
             # raise Exception("ERROR: empty longitude or latitude")
             longitude = float('NaN')

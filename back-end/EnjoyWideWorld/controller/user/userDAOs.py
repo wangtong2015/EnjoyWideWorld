@@ -5,4 +5,7 @@ from model import models
 
 class GetUserProfileDAO():
     def getUserProfile(self, userId):
-        return models.User.objects.get(wechatId = userId).totalLikes 
+        user = models.User.objects.get(wechatId = userId)
+        result = {}
+        result['totalLikes'] = user.totalLikes
+        return result

@@ -4,6 +4,7 @@
 
 from django.http import JsonResponse
 import json
+import traceback
 
 # Usage:
 # First create a facade method for Django's need.
@@ -40,6 +41,7 @@ class AttribServlet():
         except Exception as e:
             response['success'] = 0
             response['error'] = str(e)
+            # traceback.print_exc()
             print(e)
 
         # pack up json and return

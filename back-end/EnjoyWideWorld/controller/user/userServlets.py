@@ -18,7 +18,8 @@ def getUserProfile(request):
 
 class GetUserProfileServlet(AttribServlet):
     def _action(self, request, response):
-        userId = request.get['wechatId']
-        response['totalLikes'] = userDAOs.GetUserProfileDAO().getUserProfile(userId)['totalLikes']
+        userId = request.get('wechatId')
+        profile = userDAOs.GetUserProfileDAO().getUserProfile(userId)
+        response['totalLikes'] = profile['totalLikes']
         
 

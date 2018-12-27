@@ -20,6 +20,7 @@ from django.contrib import admin
 from controller.community import communityServlets
 from controller.map import mapServlets
 from controller.pet import petServlets
+from controller.user import userServlets
 
 from . import settings
 
@@ -32,7 +33,8 @@ urlpatterns = [
     url(r'^community/friendsinfo$', communityServlets.getFriendsInfo),
     url(r'^community/usersnearby$', communityServlets.getUsersNearby),
     url(r'^community/nearbyinfo$', communityServlets.getNearbyInfo),
-    url(r'^community/like$', communityServlets.likeDelike)
+    url(r'^community/like$', communityServlets.likeDelike),
+    url(r'^user/profile$', userServlets.getUserProfile)
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

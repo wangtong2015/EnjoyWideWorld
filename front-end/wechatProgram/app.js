@@ -30,12 +30,19 @@ App({
             }
           })
         }
+        else{
+          wx.reLaunch({
+            url: '/pages/authorize/authorize',
+          })
+        }
       }
     })
   },
   globalData: {
     userInfo: null,
-    latitude:null,
-    longitude:null
+    latitude: null,
+    longitude: null,
+    openid: null,
+    totalLikes: 0
   }
 })

@@ -17,17 +17,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
-    var that = this
-    _getUserInfo();
-    function _getUserInfo() {
-      wx.getUserInfo({
-        success: function (res) {
-          that.setData({
-            userInfo: res.userInfo
-          })
-        }
-      })
-    }
+    var that = this;
+    that._getUserInfo();
+    console.log(app.globalData.userInfo);
+    console.log(app.globalData.userInfo.nickName)
+    
   },
 
   /**
@@ -82,6 +76,13 @@ Page({
   getUserInfo: function(e){
     console.log(e);
     app.globalData.userInfo = e.detail.userInfo;
-  
+  },
+
+  _getUserInfo: function() {
+    wx.getUserInfo({
+      success: function (res) {
+          this.userInfo = res.userInfo
+      }
+    })
   }
 })

@@ -49,22 +49,26 @@ class GetOpenIdServlet(AttribServlet):
 
         print("user/openid: code received " + str(tempCode))
 
-        resp = requests.get("https://api.weixin.qq.com/sns/jscode2session", \
+        wxResp = requests.get("https://api.weixin.qq.com/sns/jscode2session", \
             {'appid' : APP_ID, 'secret' : APP_SECRET, 'js_code' : tempCode, \
-             'grant_type' : 'authorization_code'}).json()
-            
-        print("user/openid: " + str(resp['errcode']))
-        print("user/openid: " + str(resp['errmsg']))
+             'grant_type' : 'authorization_code'})
+        
+        print("user/openid: status_code " + wxResp.status_code)
 
-        if resp['errcode'] == 40029:
+        jsonResp = wxResp.json()
+            
+        print("user/openid: errcode " + str(jsonResp.get('errcode')))
+        print("user/openid: errmsg " + str(jsonResp.get('errmsg')))
+
+        if jsonResp.get('errcode') == 40029:
             raise Exception("ERROR: Incorrect code")
 
-        elif resp['errcode'] != 0:
-            raise Exception(resp['errmsg'])
+        elif jsonResp.get('errcode') != 0:
+            raise Exception(jsonResp.get('errmsg'))
 
-        response['openid'] = resp['openid']
-        response['session_key'] = resp['session_key']
-        # response['unionid'] = resp['unionid']
+        response['openid'] = jsonResp.get('openid')
+        response['session_key'] = jsonResp.get('session_key')
+        # response['unionid'] = jsonResp['unionid']
 
 
 # Servlet for user/add

@@ -57,7 +57,9 @@ class GetNearbyInfoServlet(servlet.AttribServlet):
         response['length'] = len(friendsInfo)
         for i in range(len(friendsInfo)):
             # if friendsInfo[i]['exist'] > 0:
-            response['name' + str(i)] = str(friendsInfo[i]['name'])
+            response['wechatId' + str(i)] = str(friendsInfo[i]['wechatId'])
+            response['nickname' + str(i)] = str(friendsInfo[i]['nickname'])
+            response['avatarUrl' + str(i)] = str(friendsInfo[i]['avatarUrl'])
             response['exp' + str(i)] = str(friendsInfo[i]['exp'])
             response['isLiked' + str(i)] = str(friendsInfo[i]['isLiked'])
 

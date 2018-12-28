@@ -53,7 +53,7 @@ class GetOpenIdServlet(AttribServlet):
             {'appid' : APP_ID, 'secret' : APP_SECRET, 'js_code' : tempCode, \
              'grant_type' : 'authorization_code'})
         
-        print("user/openid: status_code " + wxResp.status_code)
+        print("user/openid: status_code " + str(wxResp.status_code))
 
         jsonResp = wxResp.json()
             

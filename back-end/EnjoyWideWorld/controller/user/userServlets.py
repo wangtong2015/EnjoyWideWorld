@@ -34,6 +34,7 @@ class GetUserProfileServlet(AttribServlet):
 #   session_key: the session_key obtaied from code2session
 
 import requests
+import json
 
 def getOpenId(request):
     return GetOpenIdServlet().execute(request)
@@ -55,19 +56,10 @@ class GetOpenIdServlet(AttribServlet):
         
         print("user/openid: status_code " + str(wxResp.status_code))
 
-        jsonResp = wxResp.json()
-            
-        print("user/openid: errcode " + str(jsonResp.get('errcode')))
-        print("user/openid: errmsg " + str(jsonResp.get('errmsg')))
+        jsonResp = json.loads(wxResp.text)
 
-        if jsonResp.get('errcode') == 40029:
-            raise Exception("ERROR: Incorrect code")
-
-        elif jsonResp.get('errcode') != 0:
-            raise Exception(jsonResp.get('errmsg'))
-
-        response['openid'] = jsonResp.get('openid')
-        response['session_key'] = jsonResp.get('session_key')
+        response['openid'] = jsonResp['openid']
+        response['session_key'] = jsonResp['session_key']
         # response['unionid'] = jsonResp['unionid']
 
 

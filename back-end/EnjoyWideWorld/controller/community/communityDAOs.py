@@ -27,8 +27,8 @@ class GetNearbyInfo():
         result = []
         for friend in allUsers:
             # skip user himself/herself
-            if friend.wechatId == user.wechatId:
-                continue
+            # if friend.wechatId == user.wechatId:
+            #     continue
             
             # dist <= R?
             dist = utils.getDistance(longitude, latitude, friend.lastLongitude, friend.lastLatitude)
@@ -45,6 +45,8 @@ class GetNearbyInfo():
                     'avatarUrl' : friend.avatarUrl, 'exp' : pet.experience, 'isLiked' : like}
                 result.append(dict)
         
+        result.sort(key=lambda element:element['exp'], reverse=True)
+
         return result
 
 

@@ -14,6 +14,10 @@ class UserTestCase(TestCase):
     def setUp(self):
         pass
     
+    # NOTE cannot test user/openid directly, 
+    # since it needs a code from wechat that's passed from front-end
+
+    # testing user/add
     def test_userUpdate(self):
         numOfUsers = 30
         numOfUpdates = 100
@@ -33,6 +37,8 @@ class UserTestCase(TestCase):
         # update their info
         for k in range(numOfUpdates):
             target = floor(random() * numOfUsers)
+
+            # send some requests to update full data, and some request to update partly
             omit = floor(random() * 2)
             randy = floor(random() * 100)
             if omit == 0:

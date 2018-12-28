@@ -47,9 +47,14 @@ class GetOpenIdServlet(AttribServlet):
         APP_ID = "wxf6948f5ae095fe6c"
         APP_SECRET = "b02f7f8c0e9293087ebd8f0ae7a026d8"
 
+        print("user/openid: code received " + tempCode)
+
         resp = requests.get("https://api.weixin.qq.com/sns/jscode2session", \
             {'appid' : APP_ID, 'secret' : APP_SECRET, 'js_code' : tempCode, \
              'grant_type' : 'authorization_code'}).json()
+            
+        print("user/openid: " + resp['errcode'])
+        print("user/openid: " + resp['errmsg'])
 
         if resp['errcode'] == 40029:
             raise Exception("ERROR: Incorrect code")

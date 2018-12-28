@@ -26,7 +26,7 @@ class UpdateUserInfoDAO():
         if nickname != None:
             user.nickname = nickname
         if avatarurl != None:
-            user.avatarurl = avatarurl
+            user.avatarUrl = avatarurl
         if province != None:
             user.province = province
         if city != None:

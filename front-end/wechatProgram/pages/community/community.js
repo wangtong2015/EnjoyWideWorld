@@ -7,6 +7,7 @@ Page({
   data: {
     // list 
     list: null,
+    list2: []
   },
 
 
@@ -31,9 +32,13 @@ Page({
         if(res.data.success == 0){ // 不存在这个用户
         }
         else{
-          that.list = res.data,
-        //that.setData({ list: res.data }),
-          console.log(that.list)
+          that.list = res.data;
+          //that.setData({ list: res.data }),
+          console.log(that.list);
+          for (var i = 0; i < that.list.length; ++i){
+            that.list2[i].avatarUrl = that.list['vatarUrl'+i]
+            that.list2[i].nickname = that.list['nickname'+i]
+          }
         }
       },
     });

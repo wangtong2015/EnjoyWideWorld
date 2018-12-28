@@ -41,7 +41,8 @@ class GetNearbyInfo():
                     like = 1
                 else:
                     like = 0
-                dict = {'name': friend.wechatId, 'exp' : pet.experience, 'isLiked' : like}
+                dict = {'wechatId': friend.wechatId, 'nickname' : friend.nickname, \
+                    'avatarUrl' : friend.avatarUrl, 'exp' : pet.experience, 'isLiked' : like}
                 result.append(dict)
         
         return result

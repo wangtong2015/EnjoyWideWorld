@@ -36,6 +36,13 @@ class Position(models.Model):
 # 用户信息
 class User(models.Model):
     wechatId = models.CharField(max_length = 32, primary_key = True) # 主键
+    nickname = models.CharField(max_length = 32, default = '')
+    avatarUrl = models.TextField(   \
+        default = 'http://pic.51yuansu.com/pic3/cover/01/69/80/595f67bf2026f_610.jpg')
+    province = models.CharField(max_length=32, default='', null=True)
+    city = models.CharField(max_length=32, default='', null=True)
+
+
 
     totalLikes = models.PositiveIntegerField(default = 0)   # 获得的总赞数
 

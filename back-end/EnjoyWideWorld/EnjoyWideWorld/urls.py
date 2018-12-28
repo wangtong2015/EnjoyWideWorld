@@ -34,7 +34,9 @@ urlpatterns = [
     url(r'^community/usersnearby$', communityServlets.getUsersNearby),
     url(r'^community/nearbyinfo$', communityServlets.getNearbyInfo),
     url(r'^community/like$', communityServlets.likeDelike),
-    url(r'^user/profile$', userServlets.getUserProfile)
+    url(r'^user/profile$', userServlets.getUserProfile),
+    url(r'^user/openid$', userServlets.getOpenId),
+    url(r'^user/add$', userServlets.updateUserInfo)
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

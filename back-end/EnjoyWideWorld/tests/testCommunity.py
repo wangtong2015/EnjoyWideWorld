@@ -1,5 +1,5 @@
-# Test cases for global usecase 'community' and 'user'.
-# User is here since it involves total number of likes. Use the setup here.
+# Test cases for global usecase 'community'.
+# user/profile is here since it involves total number of likes. Use the setup here.
 # ZHOU Kunpeng, 25 Dec 2018
 
 from random import random

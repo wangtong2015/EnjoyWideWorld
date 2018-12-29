@@ -4,6 +4,7 @@
 
 from model import models
 from controller import utils
+from math import isnan
 
 # Get all users around R km range centered at given point 
 #   or user's last location (if longitude & latitude not provided)
@@ -15,9 +16,10 @@ class GetNearbyInfo():
         user = models.User.objects.get(wechatId = userId)
 
         # lon & lat optional; if not provided, use user's last location instead
-        if longitude == float('NaN'):
+        # x != x means x is NaN
+        if isnan(longitude):
             longitude = user.lastLongitude
-        if latitude == float('NaN'):
+        if isnan(latitude):
             latitude = user.lastLatitude
 
         # iterate through all users
@@ -25,8 +27,8 @@ class GetNearbyInfo():
         result = []
         for friend in allUsers:
             # skip user himself/herself
-            if friend.wechatId == user.wechatId:
-                continue
+            # if friend.wechatId == user.wechatId:
+            #     continue
             
             # dist <= R?
             dist = utils.getDistance(longitude, latitude, friend.lastLongitude, friend.lastLatitude)
@@ -39,9 +41,12 @@ class GetNearbyInfo():
                     like = 1
                 else:
                     like = 0
-                dict = {'name': friend.wechatId, 'exp' : pet.experience, 'isLiked' : like}
+                dict = {'wechatId': friend.wechatId, 'nickname' : friend.nickname, \
+                    'avatarUrl' : friend.avatarUrl, 'exp' : pet.experience, 'isLiked' : like}
                 result.append(dict)
         
+        result.sort(key=lambda element:element['exp'], reverse=True)
+
         return result
 
 
@@ -137,6 +142,9 @@ class LikeDelike():
     #                           or delike someone he/she has not liked
     # (if other things go wrong, raise Exception)
     def likeDelike(self, userFromId, userToId, type):
+        # Looks like liking oneself is allowed?
+        # if userFromId == userToId:
+        #     raise Exception("A user cannot like oneself")
         userFrom = self._queryUser(userFromId)
         userTo = self._queryUser(userToId)
 
@@ -152,10 +160,14 @@ class LikeDelike():
                 return False
             likeRecord = models.LikeRecord(userFrom = userFrom, userTo = userTo)
             likeRecord.save()
+            userTo.totalLikes += 1
+            userTo.save()
 
         else:   # delike
             if likeRecord == None:  # has never liked before: failed to perform
                 return False
             likeRecord.delete()
+            userTo.totalLikes -= 1
+            userTo.save()
 
         return True

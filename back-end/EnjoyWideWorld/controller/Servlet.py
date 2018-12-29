@@ -2,8 +2,9 @@
 # in this abstract class.
 # ZHOU Kunpeng, 22 Dec 2018
 
-from django.http import HttpResponse
+from django.http import JsonResponse
 import json
+import traceback
 
 # Usage:
 # First create a facade method for Django's need.
@@ -40,10 +41,11 @@ class AttribServlet():
         except Exception as e:
             response['success'] = 0
             response['error'] = str(e)
+            traceback.print_exc()
             print(e)
 
         # pack up json and return
-        return HttpResponse(json.dumps(response), content_type="application/json")
+        return JsonResponse(response)
 
     # request: a dictionary containing all informations sent by client
     #   NOTE should use request.get('xxx') to read attributes. 

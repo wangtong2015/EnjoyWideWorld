@@ -1,10 +1,11 @@
 {
   "pages": [
     "pages/map/map",
+    "pages/authorize/authorize",
     "pages/character/character",
     "pages/community/community",
     "pages/user/user"
-    
+
   ],
   "window": {
     "backgroundColor": "#282828",

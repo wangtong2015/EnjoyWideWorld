@@ -1,2 +1,15 @@
 <!--pages/community/community.wxml-->
-<text>pages/community/community.wxml</text>
+<view class="item-box">
+ <view class="items">
+  <view wx:for="{{list}}" wx:key="{{index}}" class="item"> 
+   <view bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" data-index="{{index}}" style="{{item.txtStyle}}" class="inner txt">
+   <image class="item-icon" mode="widthFix" src="{{item.uavatarUrl0}}"></image> // 前端收到的微信头像
+    <i> {{item.nickName0}}</i> // 前端收到的昵称
+   <span class="item-data">
+   <i class="rankpace"> {{item.exp0}}</i> // 前端收到的经验值
+   </span>
+   
+   </view>
+  </view>
+ </view>
+</view>

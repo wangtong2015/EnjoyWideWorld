@@ -2,7 +2,7 @@
 <view class="page">
 
 <text class="characterName">
-{{userCharacterName}}
+{{characterName}}
 <!--{{page.characterName}}
 -->
 </text>
@@ -14,13 +14,13 @@
 闪避：{{characterMiss}}
 </text>
 <text class="characterLevel">
-Lv. {{userCharacterLevel}}
+Lv. {{characterLevel}}
 <!--{{page.characterLevel}}
 
 -->
 </text>
 
-<progress class="experience" percent="{{userLevelLeft}}" color="red" stroke-width="20" activeColor="red" backgroundColor="#ccc" >
+<progress class="experience" percent="{{levelLeft}}" color="red" stroke-width="20" activeColor="red" backgroundColor="#ccc" >
 </progress>
 
 <image 

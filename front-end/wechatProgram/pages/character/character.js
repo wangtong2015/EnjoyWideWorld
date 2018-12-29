@@ -1,6 +1,6 @@
 // pages/user/user.js
 const app = getApp()
-/*var the_url = 'http://wangtong15.com:20000/map'*/
+var the_url = 'http://wangtong15.com:20001/pet'
 /*var the_url ='http://127.0.0.1:8000/map'*/
 Page({
 
@@ -14,22 +14,26 @@ Page({
   },
 
   data: {
-    userCharacter: {},
-    userCharacterName:"Zhangsan",
-    userCharacterLevel:"999",
-    userLevelLeft:"20",
-    audioSrc:'/audio/characterAudio.mp3',
+    character:{
+    characterId: "",
+    characterName:"Zhangsan",
     characterHP :"1000",
     characterAD:"150",
     characterDF :"80",
     characterSP:"70",
     characterMiss:"50%",
-    characterRight:"100",
-    characterBottom:"100",
+    characterAppearance:"1",
+    characterExp:"100",
+    },
 
 
-
-    characterSrc:'/photos/Tom.jpg'
+    characterLevel: "0",
+    levelLeft:"0",
+    levelSet: ["20", "40", "80", "160", "320", "480", "640", "1000", "4000"],//等级相关
+    characterRight: "100",
+    characterBottom: "100",//运动相关
+    audioSrc: '/audio/characterAudio.mp3',
+    characterSrc:'/photos/Tom.jpg'//调用显示声音相关
   },
 
   /*onLoad */
@@ -39,11 +43,16 @@ Page({
       title: '加载中',
     }),
     this.getCharacter();
+    var i=1;
+    while(character.characterExp>levelSet[i-1]){
+      i++;
+    }
+    var left=100*(levelSet[i]-characterExp)/levelSet[i];
     this.setData({
-      userCharacterName:"Lisi",
-      userCharacterLevel:"88",
-      audioSrc: "audio/characterAudio.mp3",
+      characterLevel:i.toString,
+      levelLeft:left.toString,
     }),
+
     wx.hideLoading();
   },
 
@@ -62,35 +71,33 @@ Page({
 
   getCharacter:function(){
     var that = this
-    var markers = []
+    var characterA
     wx.request({
-      url: the_url + '/getname', // 仅为示例，并非真实的接口地址
+      url: the_url + '/petinfo', // 仅为示例，并非真实的接口地址
       data: {
-        latitude: this.data.latitude,
-        longitude: this.data.longitude
+        wechatId: app.globalData.openid
       },
+      
       header: {
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
       method: "POST",
       success(res) {
-        var length = res.data.length
-        for (var i = 0; i < length; i++) {
-          markers[i] = {
-            iconPath: "/figs/location.png",
-            name: res.data["name" + i],
-            id: i,    //本地编号
-            index: res.data["id" + i],    //服务器上的编号
-            latitude: res.data["lat" + i],
-            longitude: res.data["lon" + i],
-            description: res.data["description" + i],
-            item_linked: res.data["itemName" + i],
-            picaddr: res.data["picaddr" + i],
-            width: 25,
-            height: 90
-          }
+
+        characterA:{
+            characterId: res.data["id" ]; 
+            characterName: res.data["name" ];
+            characterAppearance:res.data["appearance"];
+            characterExp: res.data["exp"];
+            characterHP: res.data["health"];
+            characterAD: res.data["attack"];
+            characterDF: res.data["defend"];
+            characterSP: res.data["speed"];
+            characterMiss: res.data["dodegRate"];
         }
-        that.setData({ markers: markers })
+          
+        
+        that.setData({ character: characterA })
       }
     })
 

@@ -79,27 +79,6 @@ Page({
       }
     })
     this.getpositons();    //从服务器加载positions
-    // 我觉得下面这种方式更好一点
-    // wx.getUserInfo({
-    //   success(res){
-    //     console.log(res)
-    //   },
-    //   fail(err){
-    //     console.log(err, '获取用户信息失败')
-    //     wx,wx.showModal({
-    //       title: '警告',
-    //       content: '尚未进行授权，请点击确定跳转到用户界面进行授权',
-    //       success: function(res) {
-    //         if(res.confirm){
-    //           console.log('用户点击确定')
-    //           wx.switchTab({
-    //             url: '../user/user',
-    //           })
-    //         }
-    //       },
-    //     })
-    //   }
-    // })
   },
   
   /*onReady */

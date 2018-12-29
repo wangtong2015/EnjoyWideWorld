@@ -1,6 +1,7 @@
 // pages/map/map.js
 
-var app = getApp()
+var app = getApp();
+var util = require('../../utils/util.js');
 var the_url= 'http://wangtong15.com:20001/map'
 /*var the_url ='http://127.0.0.1:8000/map'*/
 
@@ -13,8 +14,8 @@ Page({
     scale: 16,
     show_location: true,
     my_modal_hidden: true,
-    //markers:[],
-    markers: [{
+    markers:[],
+    /*markers: [{
       iconPath: "/figs/location.png",
       id: 0,                    //本地编号
       index:10,               //服务器上的编号
@@ -49,7 +50,7 @@ Page({
       description: "id=2",
       item_linked: "item2",
       picaddr: "/photos/f756c2ec0f62d341fe128038bccde5e0.jpg",
-    }],
+    }],*/
     explore_photo_path: "/photos/1ed73edb52d890c4b589d56c5149c28f.jpg",
     title:"清华大学",
     item_linked:"",
@@ -77,8 +78,7 @@ Page({
         app.globalData.longitude = res.longitude
       }
     })
-    this.getpositons();    //从服务器加载positions
-
+    this.getpositons();//从服务器加载positions
 
   },
   
@@ -87,7 +87,7 @@ Page({
     this.mapCtx=wx.createMapContext("my_map")
     wx.getFileSystemManager()
     wx.hideLoading();
-    this.getpositons();    //从服务器加载positions
+
   },
 
 
@@ -120,36 +120,40 @@ Page({
     var length = this.data.markers.length
     var lat, lng
     var checkinpoint = null
-    if (app.globalData.userInfo != null) {
-      //找到最近marker点，判断距离小于10米则打卡
-      for (var i = 0; i < length; i++) {
-        lat = this.data.markers[i]['latitude']
-        lng = this.data.markers[i]['longitude']
-        if (this.getdistance(app.globalData.latitude, app.globalData.longitude, lat, lng) < 0.01) checkinpoint = i
-      }
-      if (checkinpoint != null) {
-        wx.request({
-          url: the_url + '/checkin', // 仅为示例，并非真实的接口地址
-          data: {
-            wechatId: app.globalData.openid,
-            positionId: this.data.markers[checkinpoint]['index']
-          },
-          header: {
-            'content-type': 'application/x-www-form-urlencoded' // 默认值
-          },
-          method: "POST",
-          success(res) { }
-        })
-      }
-      else{
-        wx.showModal({
-          title: '',
-          content: '10米内没有打卡点',
-          showCancel: false,
-          confirmColor: '#e67d22ce'
-        })
+
+    //找到最近marker点，判断距离小于10米则打卡
+    for (var i = 0; i < length; i++) {
+      lat = this.data.markers[i]['latitude']
+      lng = this.data.markers[i]['longitude']
+      console.log('distance:'+this.getdistance(app.globalData.latitude, app.globalData.longitude, lat, lng))
+      if (this.getdistance(app.globalData.latitude, app.globalData.longitude, lat, lng) < 0.01) {
+        checkinpoint = i
+        console.log('checkinpoint:'+i)
       }
     }
+    if (checkinpoint != null) {
+      wx.request({
+        url: the_url + '/checkin',
+        data: {
+          wechatId: app.globalData.openid,
+          positionId: this.data.markers[checkinpoint]['index']
+        },
+        header: {
+          'content-type': 'application/x-www-form-urlencoded' // 默认值
+        },
+        method: "POST",
+        success(res) {}
+      })
+    }
+    else {
+      wx.showModal({
+        title: '',
+        content: '10米内没有打卡点',
+        showCancel: false,
+        confirmColor: '#e67d22ce'
+      })
+    }
+
 
   },
 
@@ -184,7 +188,7 @@ Page({
       },
       method: "POST",
       success(res) {
-        console.log(res)
+        //console.log(res)
         var length = res.data.length
         for (var i = 0; i < length; i++) {
           markers[i] = {

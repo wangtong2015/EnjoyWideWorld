@@ -1,4 +1,4 @@
-
+var util = require('../../utils/util.js');
 var the_url = 'http://wangtong15.com:20001'
 const app = getApp();
 Page({
@@ -7,46 +7,6 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
   onLoad: function () {
-    var that = this;
-    wx.login({
-      success(res) {
-        if (res.code) {
-          console.log(res.code)
-          // 发起网络请求
-          wx.request({
-            url: the_url + '/user/openid',
-            data: {
-              code: res.code
-            },
-            header:{
-              'content-type': 'application/x-www-form-urlencoded'
-            },
-            method: "POST",
-            success(res) {
-              console.log(res)
-              app.globalData.openid = res.data.openid
-            }
-          })
-        }
-      }
-    })
-    // 查看是否授权
-    wx.getSetting({
-      success: function (res) {
-        if (res.authSetting['scope.userInfo']) {
-          wx.getUserInfo({
-            success: function (res) {
-              //从数据库获取用户信息
-              that.queryUsreInfo();
-              //用户已经授权过
-              wx.switchTab({
-                url: '/pages/map/map'
-              })
-            }
-          });
-        }
-      },
-    })
   },
   bindGetUserInfo: function (e) {
     if (e.detail.userInfo) {

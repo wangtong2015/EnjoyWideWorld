@@ -1,19 +1,13 @@
 //app.js
+var the_url = 'http://wangtong15.com:20001'
 App({
   onLaunch: function () {
     // 展示本地存储能力
+    var that = this
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
 
-    // 登录
-    wx.login({
-      success: res => {
-        
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-      }
-    })
-    // 获取用户信息
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
@@ -21,7 +15,8 @@ App({
           wx.getUserInfo({
             success: res => {
               // 可以将 res 发送给后台解码出 unionId
-              
+              that.globalData.userInfo = res.userInfo
+              console.log(that.globalData)
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
               if (this.userInfoReadyCallback) {
@@ -30,19 +25,45 @@ App({
             }
           })
         }
-        else{
+        else {
           wx.reLaunch({
             url: '/pages/authorize/authorize',
           })
         }
       }
     })
+    // 获取用户信息
+    wx.login({
+      success(res) {
+        if (res.code) {
+          //console.log(res.code)
+          // 发起网络请求
+          wx.request({
+            url: the_url + '/user/openid',
+            data: {
+              code: res.code
+            },
+            header: {
+              'content-type': 'application/x-www-form-urlencoded'
+            },
+            method: "POST",
+            success(res) {
+              //console.log(res)
+              that.globalData.openid = res.data.openid
+            }
+          })
+        }
+      }
+    })
   },
+
+
+
   globalData: {
     userInfo: null,
     latitude: null,
     longitude: null,
-    openid: null,
+    openid: 0,
     totalLikes: 0
   }
 })

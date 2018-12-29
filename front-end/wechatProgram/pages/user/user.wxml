@@ -1,10 +1,33 @@
 <!--pages/user/user.wxml-->
 <view class="page-body-info">
-    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}"></image>
-  <view class="buttoninfo">
-    <button open-type='getUserInfo' bindgetuserinfo='getUserInfo'>授权</button>
+  <view class="cover" hidden="{{hidden}}" bindtap='hide'>
   </view>
-  <view class = 'statement'>声明</view>
-  <text class = "statementText">本软件最终解释权归“世界那么大”小组所有\nhttps://github.com/wangtong2015/EnjoyWideWorld\n版权所有，仿冒必究</text>
+  <view class="about-content" hidden="{{hidden}}">
+    <text class="large-text">魔宠宅急变 2.15.1</text>
+    <text class="small-text">An mini program for wide world</text>
+    <text class="small-text">走下去吧走下去，有六层楼那么高</text>
+    <text class="small-text">——————————————————</text>
+    <text class="small-text">开发者：韩海鹏，王童，周鲲鹏，罗子牛，刘路正</text>
+    <text class="small-text">前端：韩海鹏，罗子牛，刘路正</text>
+    <text class="small-text">后端：王童，周鲲鹏</text>
+    <text class="small-text">图标：罗子牛</text>
+    <text class="small-text">Github https://github.com/wangtong2015/EnjoyWideWorld</text>
+    <text class="small-text">Copyright(C)2018 by 世界那么大课程组</text>
+    <text class="small-text">Contact enjoywideworld@163.com</text>
+  </view>
+  <view class="main-info">
+    <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}"></image>
+    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+  </view>
+  <view class="other-info">
+    <text class="general-text" wx:if="{{userInfo.gender==1}}">Gender：  male</text>
+    <text class="general-text" wx:else>Gender： female</text>
+    <text class="general-text">Language:  {{userInfo.language}}</text>
+    <text class="general-text">Country: {{userInfo.country}}</text>
+    <text class="general-text">Province:  {{userInfo.province}}</text>
+    <text class="general-text">City: {{userInfo.city}}</text>
+  </view>
+  <view class="about">
+    <text class="about-text" bindtap='about'>About</text>
+  </view>
 </view>

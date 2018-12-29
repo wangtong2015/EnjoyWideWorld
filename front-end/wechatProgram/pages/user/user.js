@@ -7,7 +7,7 @@ Page({
    */
   data: {
     userInfo:{},
-    hasUserInfo: false
+    hidden:true,
   },
 
   function () {
@@ -18,10 +18,7 @@ Page({
    */
   onLoad: function () {
     var that = this;
-    that._getUserInfo();
-    console.log(app.globalData.userInfo);
-    console.log(app.globalData.userInfo.nickName)
-    
+    this.setData({userInfo: app.globalData.userInfo})
   },
 
   /**
@@ -73,16 +70,15 @@ Page({
 
   },
 
-  getUserInfo: function(e){
-    console.log(e);
-    app.globalData.userInfo = e.detail.userInfo;
+  onTabItemTap(item) {
+    console.log(this.data.userInfo)
   },
 
-  _getUserInfo: function() {
-    wx.getUserInfo({
-      success: function (res) {
-          this.userInfo = res.userInfo
-      }
-    })
+  about(){
+    this.setData({hidden:false})
+  },
+  
+  hide(){
+    this.setData({hidden:true})
   }
 })

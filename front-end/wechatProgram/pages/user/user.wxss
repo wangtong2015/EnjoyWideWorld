@@ -4,36 +4,102 @@
   flex-direction: column;
   align-items: center;
 }
-.userinfo-avatar {
-  position: fixed;
-  top: 50rpx;
-  width: 256rpx;
-  height: 256rpx;
-  right: 20rpx;
-  border-radius: 50%;
+.cover{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.37);
+  z-index: 98;
 }
-.userinfo-nickname {
-  position: fixed;
-  top: 150rpx;
-  left: 50rpx;
-  font-size: xx-large;
-  color: #aaa;
+.about-content{
+  position: absolute;
+  bottom: 3%;
+  right: 3%;
+  height: 65%;
+  width: 94%;
+  border-radius: 15rpx;
+  background: #fff;
+  z-index: 99;
 }
-.buttoninfo {
-  position: fixed;
-  bottom: 300rpx;
-  width: 500rpx;  
+
+.main-info {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  height: 30%;
+  width: 100%;
 }
-.statement {
-  position: fixed;
-  bottom: 180rpx;
+
+.other-info {
+  position: absolute;
+  height: 50%;
+  width: 100%;
+  bottom: 10%;
+}
+.about {
+  position: absolute;
+  display: flex;
   align-items: center;
   justify-content: center;
+  height: 8%;
+  width: 100%;
+  bottom: 3rpx;
+  border-top: 3rpx solid #ddd;
+  border-bottom: 3rpx solid #ddd;
+  background-color: rgb(250, 250, 250);
 }
-.statementText {
-  position: fixed;
-  font-size: 28rpx;
-  word-break: break-all;
-  bottom: 50rpx;
-  left: 30rpx;
+
+.userinfo-avatar {
+  position: absolute;
+  bottom: 10rpx;
+  right: 20rpx;
+  width: 256rpx;
+  height: 256rpx;
+  border-radius: 50%;
 }
+
+.userinfo-nickname {
+  position: absolute;
+  bottom:10rpx;
+  left: 50rpx;
+  font-size: xx-large;
+  color: #999999;
+}
+
+.general-text {
+  display:block;
+  width: 65%;
+  border-bottom: 2rpx solid #ddd;
+  margin: 20px;
+  padding-left: 20rpx;
+  font-size: large;
+  color: #888;
+}
+.large-text {
+  display:block;
+  width: 65%;
+  margin: 15px;
+  padding-left: 0rpx;
+  font-weight: bold;
+  font-size: x-large;
+  color: #888;
+}
+.small-text {
+  display:block;
+  width: 90%;
+  margin: 10px;
+  padding-left: 10rpx;
+  font-weight: light;
+  font-size: small;
+  color: #888;
+}
+.about-text{
+  display:block;
+  width: 100%;
+  margin: 20px;
+  padding-left: 20rpx;
+  font-size: large;
+  color: #888;
+
+}
+

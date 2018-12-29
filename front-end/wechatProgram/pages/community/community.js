@@ -5,7 +5,6 @@ var the_url = 'http://wangtong15.com:20001/community'
 
 Page({
   data: {
-    // list 
     list: null,
     list2: []
   },
@@ -29,19 +28,28 @@ Page({
       },
       method: 'POST',
       success: function (res) {
-        if(res.data.success == 0){ // 不存在这个用户
-        }
-        else{
-          that.list = res.data;
-          //that.setData({ list: res.data }),
-          console.log(that.list);
-          for (var i = 0; i < that.list.length; ++i){
-            that.list2[i].avatarUrl = that.list['vatarUrl'+i]
-            that.list2[i].nickname = that.list['nickname'+i]
-          }
-        }
+        that.abc(res);
       },
     });
-
   },
+  abc: function(e){
+    var list2 = [];
+    console.log(e.data);
+    if (e.data.success == 0) { // 不存在这个用户
+    }
+    else {
+      this.setData({ list: e.data });
+      
+      for (var i = 0; i < e.data.length; i++) {
+        list2[i] = {
+          avatarUrl: e.data["avatarUrl" + i],
+          exp: e.data["exp" + i],
+          isLiked: e.data["isLiked" + i],
+          nickName: e.data["nickName" + i],
+          wechatId: e.data["wechatId" + i],
+        }
+      };
+      this.setData({ list2: list2 })
+    }
+  }
 })

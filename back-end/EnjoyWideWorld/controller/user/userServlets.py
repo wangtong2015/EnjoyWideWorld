@@ -55,10 +55,10 @@ class GetOpenIdServlet(AttribServlet):
              'grant_type' : 'authorization_code'})
         
         print("user/openid: status_code " + str(wxResp.status_code))
-
+        print(wxResp.text)
         jsonResp = json.loads(wxResp.text)
 
-        openid = jsonResp['openid']
+        openid = jsonResp.get('openid')
         print("user/openid: openid " + str(openid))
 
         response['openid'] = openid

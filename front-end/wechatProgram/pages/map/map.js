@@ -1,6 +1,7 @@
 // pages/map/map.js
 
-var app = getApp()
+var app = getApp();
+var util = require('../../utils/util.js');
 var the_url= 'http://wangtong15.com:20001/map'
 /*var the_url ='http://127.0.0.1:8000/map'*/
 
@@ -77,7 +78,7 @@ Page({
         app.globalData.longitude = res.longitude
       }
     })
-    this.getpositons();    //从服务器加载positions
+    this.getpositons();//从服务器加载positions
 
   },
   

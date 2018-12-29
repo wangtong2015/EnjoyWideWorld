@@ -63,7 +63,7 @@ class GetOpenIdServlet(AttribServlet):
         session_key = jsonResp.get('session_key')
 
         if errcode != 0:
-            raise Exception("Failed to obtain openid. Msg=" + jsonResp.get('errmsg'))
+            raise Exception("Failed to obtain openid. Msg=" + str(jsonResp.get('errmsg')))
 
         response['openid'] = openid
         response['session_key'] = jsonResp['session_key']

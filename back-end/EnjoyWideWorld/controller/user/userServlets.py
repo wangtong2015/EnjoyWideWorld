@@ -58,7 +58,10 @@ class GetOpenIdServlet(AttribServlet):
 
         jsonResp = json.loads(wxResp.text)
 
-        response['openid'] = jsonResp['openid']
+        openid = jsonResp['openid']
+        print("user/openid: openid " + str(openid))
+
+        response['openid'] = openid
         response['session_key'] = jsonResp['session_key']
         # response['unionid'] = jsonResp['unionid']
 

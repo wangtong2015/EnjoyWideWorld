@@ -5,9 +5,16 @@ from model import models
 
 class GetUserProfileDAO():
     def getUserProfile(self, userId):
-        user = models.User.objects.get(wechatId = userId)
+        userQuery = models.User.objects.filter(wechatId = userId)
+        if len(userQuery) == 0:
+            return None
+        user = userQuery[0]
         result = {}
         result['totalLikes'] = user.totalLikes
+        result['nickname'] = user.nickname
+        result['avatarurl'] = user.avatarUrl
+        result['province'] = user.province
+        result['city'] = user.city
         return result
 
 

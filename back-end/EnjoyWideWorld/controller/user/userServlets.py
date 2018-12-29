@@ -58,12 +58,24 @@ class GetOpenIdServlet(AttribServlet):
         print(wxResp.text)
         jsonResp = json.loads(wxResp.text)
 
+        errcode = jsonResp.get('errcode')
         openid = jsonResp.get('openid')
-        print("user/openid: openid " + str(openid))
+        session_key = jsonResp.get('session_key')
+
+        if errcode != 0:
+            raise Exception("Failed to obtain openid. Msg=" + jsonResp.get('errmsg'))
 
         response['openid'] = openid
         response['session_key'] = jsonResp['session_key']
         # response['unionid'] = jsonResp['unionid']
+
+        profile = userDAOs.GetUserProfileDAO().getUserProfile(openid)
+        if profile != None:
+            response['exist'] = 1
+            for key in profile:
+                response[key] = profile[key]
+        else:
+            response['exist'] = 0
 
 
 # Servlet for user/add

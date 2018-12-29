@@ -34,7 +34,13 @@ class GetNearbyInfo():
             dist = utils.getDistance(longitude, latitude, friend.lastLongitude, friend.lastLatitude)
             if dist <= R:
                 # find pet
-                pet = models.Pet.objects.get(master = friend)
+                # Added 30 Dec 18: if a user doesn't have a pet, returns 0 exp
+                # (I think it is better to have 'continue'?)
+                petQuery = models.Pet.objects.filter(master = friend)
+                if len(petQuery) == 0:
+                    petExp = 0
+                else:
+                    petExp = petQuery[0].experience
                 # find like record; record exist -> user has liked him/her
                 likeQueryResult = models.LikeRecord.objects.filter(userFrom = user, userTo = friend)
                 if len(likeQueryResult) != 0:
@@ -42,7 +48,7 @@ class GetNearbyInfo():
                 else:
                     like = 0
                 dict = {'wechatId': friend.wechatId, 'nickname' : friend.nickname, \
-                    'avatarUrl' : friend.avatarUrl, 'exp' : pet.experience, 'isLiked' : like}
+                    'avatarUrl' : friend.avatarUrl, 'exp' : petExp, 'isLiked' : like}
                 result.append(dict)
         
         result.sort(key=lambda element:element['exp'], reverse=True)

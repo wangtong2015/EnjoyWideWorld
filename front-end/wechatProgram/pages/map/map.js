@@ -1,7 +1,7 @@
 // pages/map/map.js
 
 var app = getApp()
-var the_url= 'http://wangtong15.com:20000/map'
+var the_url= 'http://wangtong15.com:20001/map'
 /*var the_url ='http://127.0.0.1:8000/map'*/
 
 
@@ -75,38 +75,19 @@ Page({
         })
         app.globalData.latitude = res.latitude
         app.globalData.longitude = res.longitude
-        wx.hideLoading();
       }
     })
     this.getpositons();    //从服务器加载positions
-    // 我觉得下面这种方式更好一点
-    // wx.getUserInfo({
-    //   success(res){
-    //     console.log(res)
-    //   },
-    //   fail(err){
-    //     console.log(err, '获取用户信息失败')
-    //     wx,wx.showModal({
-    //       title: '警告',
-    //       content: '尚未进行授权，请点击确定跳转到用户界面进行授权',
-    //       success: function(res) {
-    //         if(res.confirm){
-    //           console.log('用户点击确定')
-    //           wx.switchTab({
-    //             url: '../user/user',
-    //           })
-    //         }
-    //       },
-    //     })
-    //   }
-    // })
+
+
   },
   
   /*onReady */
   onReady: function (e) {
     this.mapCtx=wx.createMapContext("my_map")
     wx.getFileSystemManager()
-    this.check_auth_status()
+    wx.hideLoading();
+    this.getpositons();    //从服务器加载positions
   },
 
 
@@ -150,7 +131,7 @@ Page({
         wx.request({
           url: the_url + '/checkin', // 仅为示例，并非真实的接口地址
           data: {
-            wechatId: null,
+            wechatId: app.globalData.openid,
             positionId: this.data.markers[checkinpoint]['index']
           },
           header: {
@@ -169,9 +150,7 @@ Page({
         })
       }
     }
-    else{
-      this.check_auth_status()
-    }
+
   },
 
   /*探索 */
@@ -189,40 +168,6 @@ Page({
     }, 500)
   },
 
-  /*检查授权状态 */
-  check_auth_status: function(){
-    var that = this
-    wx.getSetting({
-      success(res) {
-        if (!res.authSetting['scope.userInfo']) {
-          wx.showToast({
-            title: '请授权',
-            icon: 'loading',
-            duration: 1000,
-            mask: false,
-            success: (res) => {
-              setTimeout(function () {
-                wx.switchTab({
-                  url: '/pages/user/user',
-                })
-              }, 500)
-            }
-          })
-        }
-        else {
-          wx.getUserInfo({
-            success: function (res) {
-              that.setData({
-                userInfo: res.userInfo
-              })
-              app.globalData.userInfo= res.userInfo
-            }
-          })
-        }
-      }
-    })
-  },
-
   /*从服务器获取地点数据*/
   getpositons: function () {
     var that = this
@@ -230,6 +175,7 @@ Page({
     wx.request({
       url: the_url + '/getpositions', // 仅为示例，并非真实的接口地址
       data: {
+        wechatId: app.globalData.openid,
         latitude: this.data.latitude,
         longitude: this.data.longitude
       },
@@ -238,6 +184,7 @@ Page({
       },
       method: "POST",
       success(res) {
+        console.log(res)
         var length = res.data.length
         for (var i = 0; i < length; i++) {
           markers[i] = {

@@ -6,7 +6,13 @@
 <!--{{page.characterName}}
 -->
 </text>
-
+<text class="characterInfo">
+血量：{{characterHP}}
+攻击：{{characterAD}}
+防御：{{characterDF}}
+速度：{{characterSP}}
+闪避：{{characterMiss}}
+</text>
 <text class="characterLevel">
 Lv. {{userCharacterLevel}}
 <!--{{page.characterLevel}}
@@ -14,16 +20,18 @@ Lv. {{userCharacterLevel}}
 -->
 </text>
 
-<progress class="experience" percent="20" color="red" stroke-width="20" activeColor="red" backgroundColor="#ccc" >
+<progress class="experience" percent="{{userLevelLeft}}" color="red" stroke-width="20" activeColor="red" backgroundColor="#ccc" >
 </progress>
 
-<cover-image 
+<image 
 class="characterImage"
-src=''
+src='{{characterSrc}}'
 bindtap='to_act'
->
-</cover-image>
-<audio class="audio" src="{{audioSrc}}"  controls="false" loop="false">
-</audio>
 
+>
+</image>
+<!-->
+<audio id="myAudio" src="{{audioSrc}}"  controls='false' loop="false">
+</audio>
+</!-->
 </view>

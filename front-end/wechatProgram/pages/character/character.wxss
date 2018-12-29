@@ -11,18 +11,28 @@
   position: absolute;
   width: 150rpx;
   height: 150rpx;
-  left:50rpx;
-  top:100rpx;
+  left:200rpx;
+  top:32rpx;
+  font-size:60rpx;
 }
 
 .characterLevel {
   position: absolute;
-  width: 80rpx;
+  width: 120rpx;
+  height: 80rpx;
+  left:200rpx;
+  top:155rpx;
+  font-size:35rpx;
+  font-style: italic;
+}
+
+.characterInfo{
+  position: absolute;
+  width: 180rpx;
   height: 80rpx;
   left:50rpx;
-  top:170rpx;
-  font-size:25rpx;
-  font-style: italic;
+  top:70rpx;
+  font-size:20rpx;
 }
 
 .experience {

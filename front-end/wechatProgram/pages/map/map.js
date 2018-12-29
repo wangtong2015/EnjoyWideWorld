@@ -11,7 +11,7 @@ Page({
   data: {
     latitude: 39.958119466670300,
     longitude: 116.298038013743000,
-    scale: 16,
+    scale: 15,
     show_location: true,
     my_modal_hidden: true,
     markers:[],
@@ -78,7 +78,7 @@ Page({
         app.globalData.longitude = res.longitude
       }
     })
-    this.getpositons();//从服务器加载positions
+    this.getpositons()//从服务器加载positions
 
   },
   
@@ -109,7 +109,7 @@ Page({
   /*重定位 */
   to_reset() {
     console.log('重置定位')
-    this.setData({scale: 16})
+    this.setData({scale: 15})
     this.mapCtx.moveToLocation()
   },
 
@@ -125,10 +125,8 @@ Page({
     for (var i = 0; i < length; i++) {
       lat = this.data.markers[i]['latitude']
       lng = this.data.markers[i]['longitude']
-      console.log('distance:'+this.getdistance(app.globalData.latitude, app.globalData.longitude, lat, lng))
       if (this.getdistance(app.globalData.latitude, app.globalData.longitude, lat, lng) < 0.01) {
         checkinpoint = i
-        console.log('checkinpoint:'+i)
       }
     }
     if (checkinpoint != null) {
@@ -136,13 +134,20 @@ Page({
         url: the_url + '/checkin',
         data: {
           wechatId: app.globalData.openid,
-          positionId: this.data.markers[checkinpoint]['index']
+          positionId: this.data.markers[checkinpoint]['index'],
         },
         header: {
           'content-type': 'application/x-www-form-urlencoded' // 默认值
         },
         method: "POST",
-        success(res) {}
+        success(res) {
+          wx.showToast({
+            title: '成功',
+            icon: 'success',
+            duration: 2000
+          })
+          that.active_marker(checkinpoint)
+        }
       })
     }
     else {
@@ -179,7 +184,6 @@ Page({
     wx.request({
       url: the_url + '/getpositions', // 仅为示例，并非真实的接口地址
       data: {
-        wechatId: app.globalData.openid,
         latitude: this.data.latitude,
         longitude: this.data.longitude
       },
@@ -188,7 +192,6 @@ Page({
       },
       method: "POST",
       success(res) {
-        //console.log(res)
         var length = res.data.length
         for (var i = 0; i < length; i++) {
           markers[i] = {
@@ -223,6 +226,11 @@ Page({
     return s;
   },
 
+  active_marker: function(marker_id){
+    this.data.markers[marker_id]['iconPath'] = "/figs/location_active.png"
+    console.log(this.data.markers)
+  },
+
   /*地图中心移到marker点 */
   move_to_marker: function (marker_id) {
     this.setData({
@@ -253,7 +261,7 @@ Page({
 
   /*点击地图tab */
   onTabItemTap(item){
-    console.log(app.globalData.userInfo)
+    this.active_marker(0)
   },
 
   /*自动规划步行路线（需要改用高德地图API） */

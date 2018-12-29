@@ -2,7 +2,6 @@
   <map id="my_map" style="width: 100%; height: 100vh;" latitude="{{latitude}}" longitude="{{longitude}}" scale="{{scale}}" show-location="{{show_location}}" markers="{{markers}}" bindmarkertap="markertap"
   >
 
-
     <!--重定位按钮-->
     <cover-image
       class="reset_position"

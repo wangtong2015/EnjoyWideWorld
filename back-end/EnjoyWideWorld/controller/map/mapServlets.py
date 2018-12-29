@@ -36,7 +36,7 @@ class GetPositionsServlet(servlet.AttribServlet):
         # positions = dao.getPositionsAround(float(longitude), float(latitude))
 
         # If contains wechatid, lon & lat, update user's latest location
-        userId = request.get("wechatId")
+        userId = request.get("wechatId", "")
         longitude = request.get("longitude", "")
         latitude = request.get("latitude", "")
         if userId != "" and longitude != "" and latitude != "":

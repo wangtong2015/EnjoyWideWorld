@@ -6,20 +6,18 @@ var the_url = 'http://wangtong15.com:20001/community'
 Page({
   data: {
     list: null,
-    list2: []
+    list2: [],
+    hidden:false,
   },
 
 
   onLoad: function (options) {
     var that = this;
-    wx.showLoading({
-      title: '加载中',
-    })
     //加载数据
     wx.request({
       url: the_url + '/nearbyinfo',
       data: {
-        user: 'hhp1210384183', // app.globalData.openid
+        user: app.globalData.openid,
         latitude: app.globalData.latitude,
         longitude: app.globalData.longitude
       },
@@ -45,11 +43,20 @@ Page({
           avatarUrl: e.data["avatarUrl" + i],
           exp: e.data["exp" + i],
           isLiked: e.data["isLiked" + i],
-          nickName: e.data["nickName" + i],
+          nickname: e.data["nickname" + i],
           wechatId: e.data["wechatId" + i],
         }
       };
       this.setData({ list2: list2 })
     }
+  },
+  returntape: function(e){
+    this.setData({ my_modal_hidden: true })
+  },
+  tape: function(e){
+    this.setData({hidden:true})
+  },
+  tape2: function (e) {
+    this.setData({ hidden: false })
   }
 })

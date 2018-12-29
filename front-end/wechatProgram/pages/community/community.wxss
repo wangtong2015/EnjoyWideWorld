@@ -53,7 +53,15 @@ view{
   border-radius:50%;
 
 }
+.item-icon2{
+  width: 64rpx;
+  height: 64rpx;
+  position: fixed;
+  vertical-align: middle;
+  right: 10rpx;
+  border-radius:50%;
 
+}
 .item-data{
  float: right;
  margin-right:5%;

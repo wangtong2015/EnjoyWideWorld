@@ -4,9 +4,12 @@
   <view wx:for="{{list2}}" wx:key="{{index}}" class="item"> 
    <view bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" data-index="{{index}}" style="{{item.txtStyle}}" class="inner txt">
    <image class="item-icon" mode="widthFix" src="{{item.avatarUrl}}"></image>
-    <i> {{item.nickName}}</i>
+    <i> {{item.nickname}}</i>
    <span class="item-data">
    <i class="rankpace"> {{item.exp}}</i>
+   <image class="item-icon2" mode="widthFix" src="../../photos/红心.png" bindtap='tape2'></image>
+   <image class="item-icon2" mode="widthFix" src="../../photos/灰心.png" bindtap='tape' hidden='{{hidden}}'></image>
+   
    </span>
    
    </view>

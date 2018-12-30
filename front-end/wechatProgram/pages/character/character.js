@@ -16,17 +16,17 @@ Page({
   data: {
     character: {
       characterId: "",
-      characterName: "Zhangsan",
-      characterHP: "1000",
-      characterAD: "150",
-      characterDF: "80",
-      characterSP: "70",
-      characterMiss: "50%",
-      characterAppearance: "1",
+      characterName: "",
+      characterHP: 0,
+      characterAD: 0,
+      characterDF: 0,
+      characterSP: 0,
+      characterMiss: 0,
+      characterAppearance: 0,
       characterExp: 0,
     },
-    characterLevel: "0",
-    level: 0, // 宠物的经验
+    characterLevel: 0,
+    level: 0, // 宠物的等级
     levelLeft: 0, // 在这级宠物已有的经验占这级总经验的百分比
     levelSet: [0, 20, 60, 140, 300, 620, 1260, 2260], //等级相关
     levels: 7, // 目前levelSet中最大经验值对应的级数

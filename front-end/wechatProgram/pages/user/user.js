@@ -18,7 +18,8 @@ Page({
    */
   onLoad: function () {
     var that = this;
-    this.setData({userInfo: app.globalData.userInfo})
+    that.setData({userInfo: app.globalData.userInfo})
+    console.log(that.userInfo)
   },
 
   /**

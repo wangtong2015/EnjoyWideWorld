@@ -16,6 +16,25 @@ App({
             success: res => {
               // 可以将 res 发送给后台解码出 unionId
               that.globalData.userInfo = res.userInfo
+              wx.request({
+                url: the_url + '/user/add',
+                data: {
+                  wechatId: that.globalData.openid,
+                  nickname: that.globalData.userInfo.nickName,
+                  avatarurl: that.globalData.userInfo.avatarUrl,
+                  province: that.globalData.userInfo.province,
+                  city: that.globalData.userInfo.city
+                },
+                header: {
+                  'content-type': 'application/x-www-form-urlencoded'
+                },
+                success: function (res) {
+                  //从数据库获取用户信息
+                  // that.queryUsreInfo();
+                  console.log("更新小程序登录用户信息成功！");
+                  
+                }
+              });
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
               if (this.userInfoReadyCallback) {

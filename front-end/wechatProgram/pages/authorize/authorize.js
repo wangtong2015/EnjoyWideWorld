@@ -19,7 +19,9 @@ Page({
         data: {
           wechatId: app.globalData.openid,
           nickname: e.detail.userInfo.nickName,
-          avatarurl: e.detail.userInfo.avatarUrl
+          avatarurl: e.detail.userInfo.avatarUrl,
+          province: e.detail.userInfo.province,
+          city: e.detail.userInfo.city
         },
         header: {
           'content-type': 'application/x-www-form-urlencoded'

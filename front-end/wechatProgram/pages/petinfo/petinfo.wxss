@@ -1,0 +1,144 @@
+/* pages/petinfo/petinfo.wxss */
+/**index.wxss**/
+
+.container {
+  padding-bottom: 40rpx;
+}
+
+.experience {
+  position: absolute;
+  width: 650rpx;
+  height: 40rpx;
+  top:100rpx;
+  left:50rpx;
+}
+
+.experience2 {
+  position: absolute;
+  width: 650rpx;
+  height: 40rpx;
+  top:100rpx;
+  left:330rpx;
+  font-size:30rpx;
+}
+
+.characterName {
+  position: absolute;
+  width: 150rpx;
+  height: 150rpx;
+  left:50rpx;
+  top:40rpx;
+  font-size:40rpx;
+}
+
+.characterLevel {
+  position: absolute;
+  width: 150rpx;
+  height: 150rpx;
+  right:0rpx;
+  top:50rpx;
+  font-size:37rpx;
+}
+
+.ctntitle {
+  display: block;
+  width: 100%;
+  font-size: 28rpx;
+  text-align: left;
+  padding: 30rpx 30rpx 16rpx 30rpx;
+  box-sizing: border-box;
+  color: #888;
+}
+
+.ctn {
+  background-color: #fff;
+  width: 100%;
+  border-top: 1rpx solid #e5e5e5;
+  border-bottom: 1rpx solid #e5e5e5;
+  font-size: 34rpx;
+  color: #353535;
+}
+
+.ctn .item {
+  display: flex;
+  margin-left: 30rpx;
+  /*padding: 20rpx 0;*/
+  line-height: 88rpx;
+  /* height: 88rpx; */
+  box-sizing: border-box;
+  color: #888;
+  border-bottom: 1rpx solid #e5e5e5;
+  position: relative;
+}
+
+.ctn .item:last-child {
+  border-bottom: 0;
+}
+
+.ctn .bitem {
+  line-height: 120rpx;
+  /* height: 120rpx; */
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+}
+
+.ctn .item .title {
+  display: flex;
+  width: 136rpx;
+  color: #353535;
+}
+
+.ctn .item .content {
+  display: flex;
+  flex: 1;
+  padding-left: 44rpx;
+  padding-right: 60rpx;
+}
+
+.baseInfo .item .content text {
+  margin-right: 10rpx;
+}
+
+.baseInfo .item .content .female {
+  color: #dc4343;
+}
+
+.ctn .item .content .pTitle {
+  margin-right: 25rpx;
+  width: 80rpx;
+  text-align: right;
+}
+
+.ctn .item .content progress {
+  width: 100%;
+}
+
+.features .item {
+  display: block;
+  box-sizing: border-box;
+}
+
+.features .item .title {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  line-height: 48rpx;
+}
+
+.features .item .content {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding-left: 0;
+  font-size: 26rpx;
+  line-height: 37rpx;
+}
+
+.features .item .chevron {
+  width: 16rpx;
+  height: 26rpx;
+  position: absolute;
+  right: 30rpx;
+  top: 50%;
+  margin-top: -13rpx;
+}

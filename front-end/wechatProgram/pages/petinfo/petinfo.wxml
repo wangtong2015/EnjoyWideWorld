@@ -1,0 +1,114 @@
+<!--pages/petinfo/petinfo.wxml-->
+<view class="container">
+  <!--
+  <view class="m-sprite" data-id="{{sprite.id}}">
+    <image class="m-avatar" src="/img/sprites/{{sprite.id}}.png"></image>
+    <view class="m-info">
+      <view class="name">
+        <text>{{sprite.showname}}</text>
+      </view>
+      <view class="species">
+        <text>#{{sprite.showid}}{{sprite.species}}宝可梦</text>
+      </view>
+    </view>
+    <view class="m-chevron">
+      <image class="chevron" src="/img/chevron.png"></image>
+    </view>
+    <view class="types">
+      <text class="m-type {{type}}" wx:for="{{sprite.type}}" wx:key="unique" wx:for-item="type" wx:for-index="index">{{sprite.ctype[index]}}</text>
+    </view>
+  </view>
+  -->
+  <text class="characterName">{{petInfo.characterName}}</text>
+  <text class="characterLevel">Lv. {{level}}</text>
+  <progress wx:if="{{levelLeft < 25}}" class="experience" percent="{{levelLeft}}" stroke-width="20" activeColor="#FF400B" backgroundColor="#ccc" />
+  <progress wx:elif="{{levelLeft < 50}}" class="experience" percent="{{levelLeft}}" stroke-width="20" activeColor="#FFCE0F" backgroundColor="#ccc" />
+  <progress wx:elif="{{levelLeft < 75}}" class="experience" percent="{{levelLeft}}" stroke-width="20" activeColor="#6FCF4D" backgroundColor="#ccc" />
+  <progress wx:else class="experience" percent="{{levelLeft}}" stroke-width="20" activeColor="red" backgroundColor="#6595FF" />
+  <text class="experience2">{{levelAbs}}/{{totalExp}}</text>
+  <text class="ctntitle">基本信息</text>
+  <view class="baseInfo ctn">
+    <view class="item">
+      <text class="title">种类</text>
+      <view class="content">{{petInfo.characterName}}</view>
+    </view>
+    <view class="item">
+      <text class="title">地区</text>
+      <view class="content">{{location}}</view>
+    </view>
+    <view class="item">
+      <text class="title">性别</text>
+      <view class="content">male</view>
+      <!--{{petInfo.gender}}-->
+    </view>
+    <view class="item">
+      <text class="title">心情</text>
+      <view class="content">开心</view>
+      <!--{{mood}}-->
+    </view>
+  </view>
+  <text class="ctntitle">属性</text>
+  <view class="baseStats ctn">
+    <view class="item">
+      <text class="title">HP</text>
+      <view class="content">
+        <text class="pTitle">{{petInfo.characterHP}}</text>
+        <progress wx:if="{{petInfo.characterHP < 25}}" percent="{{100 * petInfo.characterHP / 100}}" stroke-width="15" active activeColor="#FF400B" />
+        <progress wx:elif="{{petInfo.characterHP < 50}}" percent="{{100 * petInfo.characterHP / 100}}" stroke-width="15" active activeColor="#FFCE0F" />
+        <progress wx:elif="{{petInfo.characterHP < 75}}" percent="{{100 * petInfo.characterHP / 100}}" stroke-width="15" active activeColor="#6FCF4D" />
+        <progress wx:else percent="{{100 * petInfo.characterHP / 100}}" stroke-width="15" active activeColor="#6595FF" />
+      </view>
+    </view>
+    <view class="item">
+      <text class="title">攻击</text>
+      <view class="content">
+        <text class="pTitle">{{petInfo.characterAD}}</text>
+        <progress wx:if="{{petInfo.characterAD < 25}}" percent="{{100 * petInfo.characterAD / 100}}" stroke-width="15" active activeColor="#FF400B" />
+        <progress wx:elif="{{petInfo.characterAD < 50}}" percent="{{100 * petInfo.characterAD / 100}}" stroke-width="15" active activeColor="#FFCE0F" />
+        <progress wx:elif="{{petInfo.characterAD < 75}}" percent="{{100 * petInfo.characterAD / 100}}" stroke-width="15" active activeColor="#6FCF4D" />
+        <progress wx:else percent="{{100 * petInfo.characterAD / 100}}" stroke-width="15" active activeColor="#6595FF" />
+      </view>
+    </view>
+    <view class="item">
+      <text class="title">防御</text>
+      <view class="content">
+        <text class="pTitle">{{petInfo.characterDF}}</text>
+        <progress wx:if="{{petInfo.characterDF < 25}}" percent="{{100 * petInfo.characterDF / 100}}" stroke-width="15" active activeColor="#FF400B" />
+        <progress wx:elif="{{petInfo.characterDF < 50}}" percent="{{100 * petInfo.characterDF / 100}}" stroke-width="15" active activeColor="#FFCE0F" />
+        <progress wx:elif="{{petInfo.characterDF < 75}}" percent="{{100 * petInfo.characterDF / 100}}" stroke-width="15" active activeColor="#6FCF4D" />
+        <progress wx:else percent="{{100 * petInfo.characterDF / 100}}" stroke-width="15" active activeColor="#6595FF" />
+      </view>
+    </view>
+    <view class="item">
+      <text class="title">速度</text>
+      <view class="content">
+        <text class="pTitle">{{petInfo.characterSP}}</text>
+        <progress wx:if="{{petInfo.characterSP < 25}}" percent="{{100 * petInfo.characterSP / 100}}" stroke-width="15" active activeColor="#FF400B" />
+        <progress wx:elif="{{petInfo.characterSP < 50}}" percent="{{100 * petInfo.characterSP / 100}}" stroke-width="15" active activeColor="#FFCE0F" />
+        <progress wx:elif="{{petInfo.characterSP < 75}}" percent="{{100 * petInfo.characterSP / 100}}" stroke-width="15" active activeColor="#6FCF4D" />
+        <progress wx:else percent="{{100 * petInfo.characterSP / 100}}" stroke-width="15" active activeColor="#6595FF" />
+      </view>
+    </view>
+    <view class="item">
+      <text class="title">闪避</text>
+      <view class="content">
+        <text class="pTitle">{{petInfo.characterMiss*100}}</text>
+        <progress wx:if="{{petInfo.characterMiss*100 < 25}}" percent="{{100 * petInfo.characterMiss*100 / 100}}" stroke-width="15" active activeColor="#FF400B" />
+        <progress wx:elif="{{petInfo.characterMiss*100 < 50}}" percent="{{100 * petInfo.characterMiss*100 / 100}}" stroke-width="15" active activeColor="#FFCE0F" />
+        <progress wx:elif="{{petInfo.characterMiss*100 < 75}}" percent="{{100 * petInfo.characterMiss*100 / 100}}" stroke-width="15" active activeColor="#6FCF4D" />
+        <progress wx:else percent="{{100 * petInfo.characterMiss*100 / 100}}" stroke-width="15" active activeColor="#6595FF" />
+      </view>
+    </view>
+    <view class="item">
+      <text class="title">战斗力</text>
+      <view class="content">
+        <text class="pTitle">{{ce}}</text>
+        <progress wx:if="{{ce < 25}}" percent="{{100 * ce / 100}}" stroke-width="15" active activeColor="#FF400B" />
+        <progress wx:elif="{{ce < 50}}" percent="{{100 * ce / 100}}" stroke-width="15" active activeColor="#FFCE0F" />
+        <progress wx:elif="{{ce < 75}}" percent="{{100 * ce / 100}}" stroke-width="15" active activeColor="#6FCF4D" />
+        <progress wx:else percent="{{100 * ce / 100}}" stroke-width="15" active activeColor="#6595FF" />
+      </view>
+    </view>
+
+  </view>
+</view>

@@ -80,6 +80,6 @@ App({
     latitude: null,
     longitude: null,
     openid: 0,
-    totalLikes: 0
+    totalLikes: 0,
   }
 })

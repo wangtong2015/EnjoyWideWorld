@@ -1,6 +1,7 @@
-// pages/user/user.js
-var app = getApp()
-var the_url = 'http://wangtong15.com:20001/pet'
+// pages/character/character.js
+var app = getApp();
+var the_url = 'http://wangtong15.com:20001/pet';
+var countTimeout = null;
 /*var the_url ='http://127.0.0.1:8000/map'*/
 Page({
 
@@ -21,19 +22,19 @@ Page({
       characterAD: 0,
       characterDF: 0,
       characterSP: 0,
-      characterMiss: 0,
+      characterMiss: 0, // 小数形式
       characterAppearance: 0,
       characterExp: 0,
     },
-    characterLevel: 0,
     level: 0, // 宠物的等级
     levelLeft: 0, // 在这级宠物已有的经验占这级总经验的百分比
-    levelSet: [0, 20, 60, 140, 300, 620, 1260, 2260], //等级相关
+    levelAbs: 0, // 在这级宠物已有的绝对经验
+    levelSet: [0, 20, 60, 140, 300, 620, 1260, 2260], //不同等级对应的总经验值（不是该级的经验）
     levels: 7, // 目前levelSet中最大经验值对应的级数
     characterRight: "100",
     characterBottom: "100", //运动相关
     audioSrc: '../../audio/characterAudio.mp3',
-    characterSrc: '../../photos/Tom.jpg' //调用显示声音相关
+    characterSrc: '../../photos/' //调用显示声音相关
   },
 
   /*onLoad */
@@ -43,16 +44,13 @@ Page({
     wx.showLoading({
         title: '加载中',
       }),
-      that.getCharacter()
-    that.level(that.data.character['characterExp'])
-    console.log(that.data.level)
-    console.log(that.data.levelLeft)
-    // var left = 100 * (levelSet[i] - characterExp) / levelSet[i];
-    // that.setData({
-    //   characterLevel: i.toString,
-    //   levelLeft: left.toString,
-    // }),
-    wx.hideLoading();
+      that.getCharacter(),
+      // var left = 100 * (levelSet[i] - characterExp) / levelSet[i];
+      // that.setData({
+      //   level: i.toString,
+      //   levelLeft: left.toString,
+      // }),
+      wx.hideLoading();
   },
 
   /*onReady */
@@ -70,7 +68,7 @@ Page({
     var that = this
     // var characterA = {}
     wx.request({
-      url: the_url + '/petinfo', // 仅为示例，并非真实的接口地址
+      url: the_url + '/petinfo',
       data: {
         wechatId: app.globalData.openid
       },
@@ -79,11 +77,48 @@ Page({
       },
       method: "POST",
       success(res) {
-        that.changeCharacter(res)
+        if (res.data.success == 1) {
+          that.changeCharacter(res)
+        } else { // 没有宠物
+          wx.showToast({
+            title: '创立初始角色……',
+            icon: 'loading',
+            duration: 3000
+          })
+          resetTimeout(function() {
+            var appearance = Math.floor(Math.random() * 10)
+            
+            that.setPetInfo(appearance)
+            wx.request({
+              url: the_url + '/pet/add',
+              data: {
+                wechatId: app.globalData.openid,
+                character: {
+                  characterName: that.data.character.characterName,
+                  characterHP: that.data.character.characterHP,
+                  characterAD: that.data.character.characterAD,
+                  characterDF: that.data.character.characterDF,
+                  characterSP: that.data.character.characterSP,
+                  characterMiss: that.data.character.characterMiss, // 小数形式
+                  characterAppearance: that.data.character.characterAppearance,
+                  characterExp: that.data.character.characterExp,
+                }
+              },
+              header: {
+                'content-type': 'application/x-www-form-urlencoded' // 默认值
+              },
+              method: "POST",
+              success(res) {
+
+              }
+            })
+          }, 3000)
+        }
       }
     })
   },
   changeCharacter: function(res) {
+    var that = this
     var characterA = {}
     characterA = {
       characterId: res.data["id"],
@@ -96,9 +131,13 @@ Page({
       characterAppearance: parseInt(res.data["appearance"]),
       characterExp: parseInt(res.data["exp"]),
     }
-    this.setData({
+    that.setData({
       character: characterA
-    });
+    })
+    that.setData({
+      characterSrc: that.data.characterSrc+res.data["name"]+'.jpg'
+    })
+    that.level(characterA['characterExp'])
   },
   level: function(res) {
     var left = 0
@@ -110,13 +149,15 @@ Page({
             level: i
           })
           this.setData({
-            levelLeft: 100*(res - this.data.levelSet[i]) / (this.data.levelSet[i + 1] - this.data.levelSet[i])
+            levelAbs: res - this.data.levelSet[i]
+          })
+          this.setData({
+            levelLeft: 100 * (res - this.data.levelSet[i]) / (this.data.levelSet[i + 1] - this.data.levelSet[i])
           })
           break
         }
       }
-    }
-    else{
+    } else { // 超出levels的情况下，以后每级的经验值不变
       left = res - this.data.levelSet[this.data.levels]
       leftLevels = parseInt(left / (this.data.levelSet[this.data.levels] - this.data.levelSet[this.data.levels - 1]))
       left = res - leftLevels * (this.data.levelSet[this.data.levels] - this.data.levelSet[this.data.levels - 1])
@@ -124,9 +165,88 @@ Page({
         level: this.data.levels + leftLevels
       })
       this.setData({
-        levelLeft: 100*left / (this.data.levelSet[levels] - this.data.levelSet[levels-1])
+        levelAbs: left
+      })
+      this.setData({
+        levelLeft: 100 * left / (this.data.levelSet[this.data.levels] - this.data.levelSet[this.data.levels - 1])
       })
     }
+  },
+  tapPet: function() {
+    var str = JSON.stringify(this.data);
+    wx.navigateTo({
+      url: '/pages/petinfo/petinfo?jsonStr=' + str,
+      success: function(res) {
+        // success
+      },
+      fail: function(res) {
+        // fail
+      },
+      complete: function(res) {
+        // complete
+      }
+    });
+  },
+  resetTimeout: function(timeFunc, time) {
+    if (countTimeout != null) {
+      clearTimeout(countTimeout);
+    }
+    countTimeout = setTimeout(timeFunc, time);
+  },
+  // 通过appearance到图像
+  setPetInfo: function(res) {
+    var that = this
+    var name = null
+    var image = null
+    that.setData({
+      'character.characterAppearance': res
+    })
+    switch (res) {
+      case 0:
+        image = 'cat.jpg';
+        name = 'cat';
+        break;
+      case 1:
+        image = 'cattle.jpg';
+        name = 'cattle';
+        break;
+      case 2:
+        image = 'dog.jpg';
+        name = 'dog';
+        break;
+      case 3:
+        image = 'elephant.jpg';
+        name = 'elephant';
+      case 4:
+        image = 'fox.jpg';
+        name = 'fox';
+        break;
+      case 5:
+        image = 'giraffe.jpg';
+        name = 'giraffe';
+        break;
+      case 6:
+        image = 'lion.jpg';
+        name = 'lion';
+        break;
+      case 7:
+        image = 'pig.jpg';
+        name = 'pig';
+        break;
+      case 8:
+        image = 'rabbit.jpg';
+        name = 'rabbit';
+        break;
+      case 9:
+        image = 'sheep.jpg';
+        name = 'sheep';
+        break;
+    }
+    that.setData({
+      characterSrc: that.data.characterSrc+image
+    })
+    that.setData({
+      'character.characterName': name
+    })
   }
-
 })

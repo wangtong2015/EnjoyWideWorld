@@ -1,11 +1,6 @@
 <!--pages/character/character.wxml-->
 <view class="page">
-  <text class="characterName">{{character.characterName}}<!--{{page.characterName}}--></text>
-  <text class="characterLevel">Lv. {{level}}<!--{{page.characterLevel}}--></text>
-  <progress class="experience" percent="{{levelLeft}}" color="red" stroke-width="20" activeColor="red" backgroundColor="#ccc" >
-  </progress>
-
-  <image class="characterImage" src='{{characterSrc}}' bindtap='to_act'></image>
+  <image class="characterImage" src='{{characterSrc}}' bindlongpress='tapPet'></image>
   <!-->
   <audio id="myAudio" src="{{audioSrc}}"  controls='false' loop="false">
   </audio>

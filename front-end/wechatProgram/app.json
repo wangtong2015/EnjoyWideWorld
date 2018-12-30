@@ -4,8 +4,8 @@
     "pages/authorize/authorize",
     "pages/character/character",
     "pages/community/community",
-    "pages/user/user"
-
+    "pages/user/user",
+    "pages/petinfo/petinfo"
   ],
   "window": {
     "backgroundColor": "#282828",
@@ -14,17 +14,17 @@
     "navigationBarTitleText": "EnjoyWideWorld",
     "navigationBarTextStyle": "black"
   },
-  "tabBar":{
+  "tabBar": {
     "color": "#000000",
     "backgroundColor": "#eeeeee",
     "list": [
       {
         "pagePath": "pages/map/map",
         "text": "Map",
-        "color":"#aaaaaa",
-        "selectedColor":"#282828",
-        "iconPath":"figs/Map Icon.png",
-        "selectedIconPath":"figs/Map Icon_active.png"
+        "color": "#aaaaaa",
+        "selectedColor": "#282828",
+        "iconPath": "figs/Map Icon.png",
+        "selectedIconPath": "figs/Map Icon_active.png"
       },
       {
         "pagePath": "pages/character/character",

@@ -7,25 +7,6 @@
   height: 100vh;
 }
 
-.characterName {
-  position: absolute;
-  width: 150rpx;
-  height: 150rpx;
-  left:200rpx;
-  top:32rpx;
-  font-size:60rpx;
-}
-
-.characterLevel {
-  position: absolute;
-  width: 120rpx;
-  height: 80rpx;
-  left:200rpx;
-  top:155rpx;
-  font-size:35rpx;
-  font-style: italic;
-}
-
 .characterInfo{
   position: absolute;
   width: 180rpx;
@@ -41,7 +22,6 @@
   height: 40rpx;
   top:260rpx;
   left:60rpx;
-
 }
 
 .characterImage {

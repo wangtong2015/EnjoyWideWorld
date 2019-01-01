@@ -28,10 +28,10 @@ class GetUserProfileServlet(AttribServlet):
 # which will become wechatId, the primary key for User.
 # See https://developers.weixin.qq.com/miniprogram/dev/api/code2Session.html
 # request: POST/GET w/params
-#   code: the code obtained from wx.login() at front-end
+#   code (string): the code obtained from wx.login() at front-end
 # response: POST w/json
-#   openid: the wechatid for this user
-#   session_key: the session_key obtaied from code2session
+#   openid (string): the wechatid for this user
+#   session_key (string): the session_key obtaied from code2session
 
 import requests
 import json

@@ -15,3 +15,17 @@ class GetPetInfo():
         if len(petQuery) == 0:
             return None
         return petQuery[0]
+
+# Create a new pet according to info given
+class CreatePet():
+    # params: wechatId (string) as pet's master, name (string), experience (int), \
+    #   appearanceId (int), heath (int), attack (int), defend (int), speed (int), \
+    #   dodgeRate (int)
+    # returns: the id of the pet (int) 
+    def createPet(self, wechatId, name, experience, appearanceId, \
+            health, attack, defend, speed, dodgeRate):
+        user = models.User.objects.get(wechatId=wechatId)
+        pet = models.Pet.objects.create(master=user, name=name, experience=experience, \
+            appearanceId=appearanceId, health=health, attack=attack, defend=defend, \
+            speed=speed, dodgeRate=dodgeRate)
+        return pet.id

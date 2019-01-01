@@ -51,55 +51,37 @@ class GetPetInfoServlet(AttribServlet):
         response['dodgeRate'] = pet.dodgeRate
 
 
-# servlet for pet/petinfo
-# returns necessary information for a pet
-# request: GET or POST w/params
-#   wechatId (string)
-# response: pet information
-#   id (int)
-#   name (string)
-#   appearance (int)
-#   exp (int)
-#   health/attack/defend/speed/dodgeRate (int)
+# servlet for pet/add
+# Add a new pet to the database. 
+# request: POST or GET w/params
+#   wechatId (string): user id
+#   characterName (string): name of the pet
+#   characterHP (int): health
+#   characterAD (int): attack
+#   characterDF (int): defend
+#   characterSP (int): speed
+#   characterMiss (int): dodgeRate
+#   characterAppearance (int): appearanceId
+#   characterExp (int): experience
+# response: 
+#   characterID (int): id of the pet
 
-# def getPetInfo(request):
+def createPet(request):
+    return CreatePetServlet().execute(request)
 
-#     resp = {}
-#     resp['success'] = True
+class CreatePetServlet(AttribServlet):
+    def _action(self, request, response):
+        wechatId = request.get('wechatId')
+        name = request.get('characterName')
+        health = request.get('characterHP')
+        attack = request.get('characterAD')
+        defend = request.get('characterDF')
+        speed = request.get('characterSP')
+        dodgeRate = request.get('characterMiss')
+        appearanceId = request.get('characterAppearance')
+        experience = request.get('characterExp')
 
-#     try:
-#         if request.method == "POST":
-#             wxid = request.POST.get("wechatId")
-#         elif request.method == "GET":
-#             wxid = request.GET.get("wechatId")
-#         else:
-#             raise Exception("ERROR: illegal request method")
-
-#         # require wechat id 
-#         if wxid == "":
-#             raise Exception("ERROR: empty wechat id")
-
-#         dao = petDAOs.GetPetInfo()
-#         pet = dao.getPetInfo(wxid)
-
-#         if pet == None:
-#             raise Exception("ERROR: wechat id does not match any users")
-
-#         resp['id'] = pet.id
-#         resp['name'] = pet.name
-#         resp['exp'] = pet.experience
-#         resp['appearance'] = pet.appearanceId
-#         resp['health'] = pet.health
-#         resp['defend'] = pet.defend
-#         resp['attack'] = pet.attack
-#         resp['speed'] = pet.speed
-#         resp['dodgeRate'] = pet.dodgeRate
-
-#     except Exception as e:
-#         resp['success'] = False
-#         resp['error'] = str(e)
-#         print(e)
-
-#     finally:
-#         return HttpResponse(json.dumps(resp), content_type="application/json")
-
+        id = petDAOs.CreatePet().createPet(wechatId, name, experience, \
+            appearanceId, health, attack, defend, speed, dodgeRate)
+        
+        response['characterID'] = id

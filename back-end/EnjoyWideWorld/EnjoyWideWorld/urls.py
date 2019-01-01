@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^map/getpositions$', mapServlets.getPositions),
     url(r'^map/checkin$', mapServlets.checkIn),
     url(r'^pet/petinfo$', petServlets.getPetInfo),
+    url(r'^pet/add$', petServlets.createPet),
     url(r'^community/friendsinfo$', communityServlets.getFriendsInfo),
     url(r'^community/usersnearby$', communityServlets.getUsersNearby),
     url(r'^community/nearbyinfo$', communityServlets.getNearbyInfo),

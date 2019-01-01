@@ -64,7 +64,7 @@ class GetNearbyInfoServlet(servlet.AttribServlet):
             response['isLiked' + str(i)] = str(friendsInfo[i]['isLiked'])
 
 
-# DEPRECATED
+# @DEPRECATED
 # servlet for community/usersnearby
 # request: POST w/form params
 #   user (string) indicates the wechat id of the user who's sending request
@@ -119,7 +119,7 @@ def getUsersNearby(request):
         # pack up json and return
         return HttpResponse(json.dumps(resp), content_type="application/json")
 
-# DEPRECATED
+# @DEPRECATED
 # servlet for community/friendsinfo
 # request: POST w/form params
 #   user (string) indicates the wechat id of the user who's sending request

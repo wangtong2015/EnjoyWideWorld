@@ -19,6 +19,13 @@
     <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}"></image>
     <text class="userinfo-nickname">{{userInfo.nickName}}</text>
   </view>
+  <!--view class="under-other-info">
+    <image class="bar" src='/figs/bar.png'></image>
+    <image class="bar" src='/figs/bar.png'></image>
+    <image class="bar" src='/figs/bar.png'></image>
+    <image class="bar" src='/figs/bar.png'></image>
+    <image class="bar" src='/figs/bar.png'></image>
+  </view-->
   <view class="other-info">
     <text class="general-text" wx:if="{{userInfo.gender==1}}">Gender：  male</text>
     <text class="general-text" wx:else>Gender： female</text>

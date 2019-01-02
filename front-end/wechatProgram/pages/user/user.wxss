@@ -30,6 +30,13 @@
   width: 100%;
 }
 
+.under-other-info {
+  position: absolute;
+  height: 278px;
+  width: 100%;
+  bottom: 10%;
+}
+
 .other-info {
   position: absolute;
   height: 50%;
@@ -66,6 +73,14 @@
   color: #999999;
 }
 
+.bar{
+  display: block;
+  height: 50rpx;
+  margin-left:-200rpx; 
+  padding-top: 40rpx;
+  opacity: 0.2;
+}
+
 .general-text {
   display:block;
   width: 65%;
@@ -82,7 +97,7 @@
   padding-left: 0rpx;
   font-weight: bold;
   font-size: x-large;
-  color: #888;
+  color: #e67d22c9;
 }
 .small-text {
   display:block;

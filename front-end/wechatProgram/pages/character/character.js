@@ -17,7 +17,7 @@ Page({
   data: {
     character: {
       characterId: "",
-      characterName: "",
+      characterName: "Tom",
       characterHP: 0,
       characterAD: 0,
       characterDF: 0,

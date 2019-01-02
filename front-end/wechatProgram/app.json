@@ -8,10 +8,8 @@
     "pages/petinfo/petinfo"
   ],
   "window": {
-    "backgroundColor": "#282828",
-    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#eeeeee",
-    "navigationBarTitleText": "EnjoyWideWorld",
+    "navigationBarTitleText": "魔宠宅急变",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {

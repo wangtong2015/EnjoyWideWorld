@@ -86,12 +86,12 @@ Page({
             icon: 'loading',
             duration: 3000
           })
-          resetTimeout(function() {
+          that.resetTimeout(function() {
             var appearance = Math.floor(Math.random() * 10)
 
             that.setPetInfo(appearance)
             wx.request({
-              url: the_url + '/pet/add',
+              url: the_url + '/add',
               data: {
                 wechatId: app.globalData.openid,
                 character: {

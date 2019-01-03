@@ -59,6 +59,21 @@ Page({
     //wx.getFileSystemManager()
   },
 
+  onShow: function(e){
+    var that = this
+    var i = 1
+    wx.showLoading({
+      title: '加载中',
+    }),
+      that.getCharacter(),
+      // var left = 100 * (levelSet[i] - characterExp) / levelSet[i];
+      // that.setData({
+      //   level: i.toString,
+      //   levelLeft: left.toString,
+      // }),
+      wx.hideLoading();
+  },
+
   /*角色触摸反响 */
   to_act() {
     console.log('角色触摸反响')

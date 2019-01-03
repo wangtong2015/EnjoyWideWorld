@@ -81,6 +81,8 @@ class CreatePetServlet(AttribServlet):
         appearanceId = request.get('characterAppearance')
         experience = request.get('characterExp')
 
+        print(name)
+
         id = petDAOs.CreatePet().createPet(wechatId, name, experience, \
             appearanceId, health, attack, defend, speed, dodgeRate)
         

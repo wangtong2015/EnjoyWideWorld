@@ -28,4 +28,5 @@ class CreatePet():
         pet = models.Pet.objects.create(master=user, name=name, experience=experience, \
             appearanceId=appearanceId, health=health, attack=attack, defend=defend, \
             speed=speed, dodgeRate=dodgeRate)
+        pet.save()
         return pet.id

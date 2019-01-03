@@ -29,16 +29,10 @@ Page({
     //   mood: object.characterMood < 50 ? '伤心' : object.characterMood > 80? '开心': '一般'
     // })
     that.setData({
-      level: object.level
-    })
-    that.setData({
-      levelLeft: object.levelLeft
-    })
-    that.setData({
-      levelAbs: object.levelAbs
-    })
-    that.setData({
-      totalExp: object.level < 7 ? object.levelSet[object.level + 1] - object.levelSet[object.level] : object.levelSet[object.levels] - object.levelSet[object.levels-1]
+      level: object.level,
+      levelLeft: object.levelLeft,
+      levelAbs: object.levelAbs,
+      totalExp: object.level < 7 ? object.levelSet[object.level + 1] - object.levelSet[object.level] : object.levelSet[object.levels] - object.levelSet[object.levels - 1]
     })
   }
 })

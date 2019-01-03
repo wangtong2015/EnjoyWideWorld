@@ -89,7 +89,7 @@ Page({
           that.resetTimeout(function() {
             var appearance = Math.floor(Math.random() * 10)
             that.setPetInfo(appearance)
-            }, 3000)
+          }, 3000)
         }
       }
     })
@@ -123,12 +123,8 @@ Page({
       for (var i = 0; i < this.data.levels; i++) {
         if (this.data.levelSet[i] <= res && res < this.data.levelSet[i + 1]) {
           this.setData({
-            level: i
-          })
-          this.setData({
-            levelAbs: res - this.data.levelSet[i]
-          })
-          this.setData({
+            level: i,
+            levelAbs: res - this.data.levelSet[i],
             levelLeft: 100 * (res - this.data.levelSet[i]) / (this.data.levelSet[i + 1] - this.data.levelSet[i])
           })
           break
@@ -188,7 +184,7 @@ Page({
       case 0:
         image = 'cat.png';
         name = 'cat';
-        characterHP = 12;
+        characterHP = 36;
         characterAD = 16;
         characterDF = 7;
         characterSP = 19;
@@ -198,7 +194,7 @@ Page({
       case 1:
         image = 'cattle.png';
         name = 'cattle';
-        characterHP = 20;
+        characterHP = 60;
         characterAD = 13;
         characterDF = 18;
         characterSP = 9;
@@ -208,7 +204,7 @@ Page({
       case 2:
         image = 'dog.png';
         name = 'dog';
-        characterHP = 14;
+        characterHP = 42;
         characterAD = 15;
         characterDF = 11;
         characterSP = 15;
@@ -218,7 +214,7 @@ Page({
       case 3:
         image = 'elephant.png';
         name = 'elephant';
-        characterHP = 20;
+        characterHP = 60;
         characterAD = 10;
         characterDF = 20;
         characterSP = 4;
@@ -227,7 +223,7 @@ Page({
       case 4:
         image = 'fox.png';
         name = 'fox';
-        characterHP = 10;
+        characterHP = 30;
         characterAD = 18;
         characterDF = 5;
         characterSP = 19;
@@ -237,7 +233,7 @@ Page({
       case 5:
         image = 'giraffe.png';
         name = 'giraffe';
-        characterHP = 14;
+        characterHP = 42;
         characterAD = 13;
         characterDF = 9;
         characterSP = 12;
@@ -247,7 +243,7 @@ Page({
       case 6:
         image = 'lion.png';
         name = 'lion';
-        characterHP = 15;
+        characterHP = 45;
         characterAD = 19;
         characterDF = 12;
         characterSP = 18;
@@ -257,7 +253,7 @@ Page({
       case 7:
         image = 'pig.png';
         name = 'pig';
-        characterHP = 19;
+        characterHP = 57;
         characterAD = 9;
         characterDF = 16;
         characterSP = 10;
@@ -267,7 +263,7 @@ Page({
       case 8:
         image = 'rabbit.png';
         name = 'rabbit';
-        characterHP = 7;
+        characterHP = 21;
         characterAD = 11;
         characterDF = 5;
         characterSP = 20;
@@ -277,7 +273,7 @@ Page({
       case 9:
         image = 'sheep.png';
         name = 'sheep';
-        characterHP = 17;
+        characterHP = 51;
         characterAD = 15;
         characterDF = 11;
         characterSP = 7;
@@ -296,27 +292,28 @@ Page({
       'character.characterAppearance': characterAppearance,
       'character.characterExp': 0,
     })
+    console.log(name)
     wx.request({
       url: the_url + '/add',
       data: {
         wechatId: app.globalData.openid,
-        character: {
-          characterName: name,
-          characterHP: characterHP,
-          characterAD: characterAD,
-          characterDF: characterDF,
-          characterSP: characterSP,
-          characterMiss: characterMiss, // 小数形式
-          characterAppearance: characterAppearance,
-          characterExp: 0,
-        }
+        characterName: name,
+        characterHP: characterHP,
+        characterAD: characterAD,
+        characterDF: characterDF,
+        characterSP: characterSP,
+        characterMiss: parseInt(characterMiss*100),
+        characterAppearance: characterAppearance,
+        characterExp: 0,
       },
       header: {
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
       method: "POST",
       success(res) {
-        console.log(res)
+        that.setData({
+          'character.characterID': res.data.characterID
+        })
       }
     })
   }

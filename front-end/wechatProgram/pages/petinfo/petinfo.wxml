@@ -53,10 +53,10 @@
       <text class="title">HP</text>
       <view class="content">
         <text class="pTitle">{{petInfo.characterHP}}</text>
-        <progress wx:if="{{petInfo.characterHP < 25}}" percent="{{100 * petInfo.characterHP / 100}}" stroke-width="15" active activeColor="#FF400B" />
-        <progress wx:elif="{{petInfo.characterHP < 50}}" percent="{{100 * petInfo.characterHP / 100}}" stroke-width="15" active activeColor="#FFCE0F" />
-        <progress wx:elif="{{petInfo.characterHP < 75}}" percent="{{100 * petInfo.characterHP / 100}}" stroke-width="15" active activeColor="#6FCF4D" />
-        <progress wx:else percent="{{100 * petInfo.characterHP / 100}}" stroke-width="15" active activeColor="#6595FF" />
+        <progress wx:if="{{petInfo.characterHP < 75}}" percent="{{100 * petInfo.characterHP / 300}}" stroke-width="15" active activeColor="#FF400B" />
+        <progress wx:elif="{{petInfo.characterHP < 150}}" percent="{{100 * petInfo.characterHP / 300}}" stroke-width="15" active activeColor="#FFCE0F" />
+        <progress wx:elif="{{petInfo.characterHP < 225}}" percent="{{100 * petInfo.characterHP / 300}}" stroke-width="15" active activeColor="#6FCF4D" />
+        <progress wx:else percent="{{100 * petInfo.characterHP / 300}}" stroke-width="15" active activeColor="#6595FF" />
       </view>
     </view>
     <view class="item">
@@ -103,10 +103,10 @@
       <text class="title">战斗力</text>
       <view class="content">
         <text class="pTitle">{{ce}}</text>
-        <progress wx:if="{{ce < 25}}" percent="{{100 * ce / 100}}" stroke-width="15" active activeColor="#FF400B" />
-        <progress wx:elif="{{ce < 50}}" percent="{{100 * ce / 100}}" stroke-width="15" active activeColor="#FFCE0F" />
-        <progress wx:elif="{{ce < 75}}" percent="{{100 * ce / 100}}" stroke-width="15" active activeColor="#6FCF4D" />
-        <progress wx:else percent="{{100 * ce / 100}}" stroke-width="15" active activeColor="#6595FF" />
+        <progress wx:if="{{ce < 35}}" percent="{{100 * ce / 140}}" stroke-width="15" active activeColor="#FF400B" />
+        <progress wx:elif="{{ce < 70}}" percent="{{100 * ce / 140}}" stroke-width="15" active activeColor="#FFCE0F" />
+        <progress wx:elif="{{ce < 105}}" percent="{{100 * ce / 140}}" stroke-width="15" active activeColor="#6FCF4D" />
+        <progress wx:else percent="{{100 * ce / 140}}" stroke-width="15" active activeColor="#6595FF" />
       </view>
     </view>
 

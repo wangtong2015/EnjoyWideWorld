@@ -88,32 +88,8 @@ Page({
           })
           that.resetTimeout(function() {
             var appearance = Math.floor(Math.random() * 10)
-
             that.setPetInfo(appearance)
-            wx.request({
-              url: the_url + '/add',
-              data: {
-                wechatId: app.globalData.openid,
-                character: {
-                  characterName: that.data.character.characterName,
-                  characterHP: that.data.character.characterHP,
-                  characterAD: that.data.character.characterAD,
-                  characterDF: that.data.character.characterDF,
-                  characterSP: that.data.character.characterSP,
-                  characterMiss: that.data.character.characterMiss, // 小数形式
-                  characterAppearance: that.data.character.characterAppearance,
-                  characterExp: that.data.character.characterExp,
-                }
-              },
-              header: {
-                'content-type': 'application/x-www-form-urlencoded' // 默认值
-              },
-              method: "POST",
-              success(res) {
-
-              }
-            })
-          }, 3000)
+            }, 3000)
         }
       }
     })
@@ -199,6 +175,12 @@ Page({
     var that = this
     var name = null
     var image = null
+    var characterHP = null
+    var characterAD = null
+    var characterDF = null
+    var characterSP = null
+    var characterMiss = null; // 小数形式
+    var characterAppearance = null;
     that.setData({
       'character.characterAppearance': res
     })
@@ -206,48 +188,136 @@ Page({
       case 0:
         image = 'cat.png';
         name = 'cat';
+        characterHP = 12;
+        characterAD = 16;
+        characterDF = 7;
+        characterSP = 19;
+        characterMiss = 0.08; // 小数形式
+        characterAppearance = 0;
         break;
       case 1:
         image = 'cattle.png';
         name = 'cattle';
+        characterHP = 20;
+        characterAD = 13;
+        characterDF = 18;
+        characterSP = 9;
+        characterMiss = 0.02; // 小数形式
+        characterAppearance = 1;
         break;
       case 2:
         image = 'dog.png';
         name = 'dog';
+        characterHP = 14;
+        characterAD = 15;
+        characterDF = 11;
+        characterSP = 15;
+        characterMiss = 0.05; // 小数形式
+        characterAppearance = 2;
         break;
       case 3:
         image = 'elephant.png';
         name = 'elephant';
+        characterHP = 20;
+        characterAD = 10;
+        characterDF = 20;
+        characterSP = 4;
+        characterMiss = 0.01; // 小数形式
+        characterAppearance = 3;
       case 4:
         image = 'fox.png';
         name = 'fox';
+        characterHP = 10;
+        characterAD = 18;
+        characterDF = 5;
+        characterSP = 19;
+        characterMiss = 0.1; // 小数形式
+        characterAppearance = 4;
         break;
       case 5:
         image = 'giraffe.png';
         name = 'giraffe';
+        characterHP = 14;
+        characterAD = 13;
+        characterDF = 9;
+        characterSP = 12;
+        characterMiss = 0.06; // 小数形式
+        characterAppearance = 5;
         break;
       case 6:
         image = 'lion.png';
         name = 'lion';
+        characterHP = 15;
+        characterAD = 19;
+        characterDF = 12;
+        characterSP = 18;
+        characterMiss = 0.09; // 小数形式
+        characterAppearance = 6;
         break;
       case 7:
         image = 'pig.png';
         name = 'pig';
+        characterHP = 19;
+        characterAD = 9;
+        characterDF = 16;
+        characterSP = 10;
+        characterMiss = 0.06; // 小数形式
+        characterAppearance = 7;
         break;
       case 8:
         image = 'rabbit.png';
         name = 'rabbit';
+        characterHP = 7;
+        characterAD = 11;
+        characterDF = 5;
+        characterSP = 20;
+        characterMiss = 0.12; // 小数形式
+        characterAppearance = 8;
         break;
       case 9:
         image = 'sheep.png';
         name = 'sheep';
+        characterHP = 17;
+        characterAD = 15;
+        characterDF = 11;
+        characterSP = 7;
+        characterMiss = 0.03; // 小数形式
+        characterAppearance = 9;
         break;
     }
     that.setData({
-      characterSrc: imageSrc + image
+      characterSrc: imageSrc + image,
+      'character.characterName': name,
+      'character.characterHP': characterHP,
+      'character.characterAD': characterAD,
+      'character.characterDF': characterDF,
+      'character.characterSP': characterSP,
+      'character.characterMiss': characterMiss,
+      'character.characterAppearance': characterAppearance,
+      'character.characterExp': 0,
     })
-    that.setData({
-      'character.characterName': name
+    wx.request({
+      url: the_url + '/add',
+      data: {
+        wechatId: app.globalData.openid,
+        character: {
+          characterName: name,
+          characterHP: characterHP,
+          characterAD: characterAD,
+          characterDF: characterDF,
+          characterSP: characterSP,
+          characterMiss: characterMiss, // 小数形式
+          characterAppearance: characterAppearance,
+          characterExp: 0,
+        }
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      method: "POST",
+      success(res) {
+        console.log(res)
+      }
     })
   }
 })

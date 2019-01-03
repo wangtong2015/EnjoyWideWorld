@@ -28,8 +28,8 @@
 
 .characterImage {
   position: absolute;
-  width: 80%;
-  bottom:10%;
+  width: 70%;
+  bottom: 20%;
 }
 .ground {
   position: absolute;

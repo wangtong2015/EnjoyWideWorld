@@ -49,10 +49,11 @@ class UpdateUserLocation():
         user.save()
 
 
+from controller.pet import petDAOs
 # A user checks in a given position
 class CheckIn():
     # params: wechatId (string), positionId (int)
-    # returns: the item that applies its effect on user's pet.
+    # returns: a dictionary that shows total effect on user's pet.
     def checkIn(self, wechatId, positionId):
         # get user and position
         user = models.User.objects.filter(wechatId = wechatId)[0]
@@ -73,12 +74,15 @@ class CheckIn():
         pet = user.pets.all()[0]
         item = position.itemLinked
 
-        pet.experience += item.addExp
+        # pet.experience += item.addExp
         pet.health += item.addHealth
         pet.attack += item.addAttack
         pet.defend += item.addDefend
         pet.speed += item.addSpeed
         pet.dodgeRate += item.addDodgeRate
         pet.save()
+
+        # update pet's experience (if leveled-up, ability will be updated accordingly)
+        petDAOs.UpdateExperience().updateExperience(pet.id, pet.experience + item.addExp)
 
         return item

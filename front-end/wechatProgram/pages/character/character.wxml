@@ -1,6 +1,11 @@
 <!--pages/character/character.wxml-->
 <view class="page">
-  <image class="characterImage" src='{{characterSrc}}' bindlongpress='tapPet'></image>
+  <image class="ground" src='/photos/ground.png' mode='widthFix'></image>
+  <image class="up" src='/photos/up.png' mode='widthFix'></image>
+  <image class="frame" src='/photos/frame.png' mode='widthFix'></image>
+  <image class="characterImage" src='{{characterSrc}}' mode='widthFix' bindlongpress='tapPet'></image>
+  <view class="petname">{{character.characterName}}</view>
+  
   <!-->
   <audio id="myAudio" src="{{audioSrc}}"  controls='false' loop="false">
   </audio>

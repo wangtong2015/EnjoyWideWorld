@@ -2,6 +2,7 @@
 var app = getApp();
 var the_url = 'http://wangtong15.com:20001/pet';
 var countTimeout = null;
+var imageSrc = '../../photos/';
 /*var the_url ='http://127.0.0.1:8000/map'*/
 Page({
 
@@ -17,7 +18,7 @@ Page({
   data: {
     character: {
       characterId: "",
-      characterName: "",
+      characterName: "Tom",
       characterHP: 0,
       characterAD: 0,
       characterDF: 0,
@@ -33,8 +34,8 @@ Page({
     levels: 7, // 目前levelSet中最大经验值对应的级数
     characterRight: "100",
     characterBottom: "100", //运动相关
-    audioSrc: '../../audio/characterAudio.mp3',
-    characterSrc: '../../photos/' //调用显示声音相关
+    // audioSrc: '../../audio/characterAudio.mp3',
+    characterSrc: ''
   },
 
   /*onLoad */
@@ -87,7 +88,7 @@ Page({
           })
           resetTimeout(function() {
             var appearance = Math.floor(Math.random() * 10)
-            
+
             that.setPetInfo(appearance)
             wx.request({
               url: the_url + '/pet/add',
@@ -135,7 +136,7 @@ Page({
       character: characterA
     })
     that.setData({
-      characterSrc: that.data.characterSrc+res.data["name"]+'.jpg'
+      characterSrc: imageSrc + res.data["name"] + '.png'
     })
     that.level(characterA['characterExp'])
   },
@@ -203,47 +204,47 @@ Page({
     })
     switch (res) {
       case 0:
-        image = 'cat.jpg';
+        image = 'cat.png';
         name = 'cat';
         break;
       case 1:
-        image = 'cattle.jpg';
+        image = 'cattle.png';
         name = 'cattle';
         break;
       case 2:
-        image = 'dog.jpg';
+        image = 'dog.png';
         name = 'dog';
         break;
       case 3:
-        image = 'elephant.jpg';
+        image = 'elephant.png';
         name = 'elephant';
       case 4:
-        image = 'fox.jpg';
+        image = 'fox.png';
         name = 'fox';
         break;
       case 5:
-        image = 'giraffe.jpg';
+        image = 'giraffe.png';
         name = 'giraffe';
         break;
       case 6:
-        image = 'lion.jpg';
+        image = 'lion.png';
         name = 'lion';
         break;
       case 7:
-        image = 'pig.jpg';
+        image = 'pig.png';
         name = 'pig';
         break;
       case 8:
-        image = 'rabbit.jpg';
+        image = 'rabbit.png';
         name = 'rabbit';
         break;
       case 9:
-        image = 'sheep.jpg';
+        image = 'sheep.png';
         name = 'sheep';
         break;
     }
     that.setData({
-      characterSrc: that.data.characterSrc+image
+      characterSrc: imageSrc + image
     })
     that.setData({
       'character.characterName': name

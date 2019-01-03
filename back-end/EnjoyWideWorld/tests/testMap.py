@@ -35,7 +35,7 @@ class MapTestCase(TestCase):
             item = models.Item.objects.create(         \
                 name='item' + str(i),                  \
                 description='itemDesc' + str(i),       \
-                addExp=floor(random() * 200 + 50),            \
+                addExp=floor(random() * 20 + 10),            \
                 addHealth=floor(random() * 50 + 2),           \
                 addAttack=floor(random() * 10 + 2),           \
                 addDefend=floor(random() * 10 + 2),           \
@@ -117,11 +117,11 @@ class MapTestCase(TestCase):
                 self._pet.speed += self._items[id - 1].addSpeed
                 self._pet.dodgeRate += self._items[id - 1].addDodgeRate
                 self.assertEqual(models.Pet.objects.get(id=self._pet.id).experience, self._pet.experience)
-                self.assertEqual(models.Pet.objects.get(id=self._pet.id).health, self._pet.health)
-                self.assertEqual(models.Pet.objects.get(id=self._pet.id).attack, self._pet.attack)
-                self.assertEqual(models.Pet.objects.get(id=self._pet.id).defend, self._pet.defend)
-                self.assertEqual(models.Pet.objects.get(id=self._pet.id).speed, self._pet.speed)
-                self.assertEqual(models.Pet.objects.get(id=self._pet.id).dodgeRate, self._pet.dodgeRate)
+                self.assertGreaterEqual(models.Pet.objects.get(id=self._pet.id).health, self._pet.health)
+                self.assertGreaterEqual(models.Pet.objects.get(id=self._pet.id).attack, self._pet.attack)
+                self.assertGreaterEqual(models.Pet.objects.get(id=self._pet.id).defend, self._pet.defend)
+                self.assertGreaterEqual(models.Pet.objects.get(id=self._pet.id).speed, self._pet.speed)
+                self.assertGreaterEqual(models.Pet.objects.get(id=self._pet.id).dodgeRate, self._pet.dodgeRate)
             
             # set checked
             checked[id - 1] = True

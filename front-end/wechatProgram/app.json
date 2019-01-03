@@ -5,7 +5,8 @@
     "pages/character/character",
     "pages/community/community",
     "pages/user/user",
-    "pages/petinfo/petinfo"
+    "pages/petinfo/petinfo",
+    "pages/fight/fight"
   ],
   "window": {
     "navigationBarBackgroundColor": "#eeeeee",

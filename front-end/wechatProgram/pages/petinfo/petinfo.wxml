@@ -1,24 +1,5 @@
 <!--pages/petinfo/petinfo.wxml-->
 <view class="container">
-  <!--
-  <view class="m-sprite" data-id="{{sprite.id}}">
-    <image class="m-avatar" src="/img/sprites/{{sprite.id}}.png"></image>
-    <view class="m-info">
-      <view class="name">
-        <text>{{sprite.showname}}</text>
-      </view>
-      <view class="species">
-        <text>#{{sprite.showid}}{{sprite.species}}宝可梦</text>
-      </view>
-    </view>
-    <view class="m-chevron">
-      <image class="chevron" src="/img/chevron.png"></image>
-    </view>
-    <view class="types">
-      <text class="m-type {{type}}" wx:for="{{sprite.type}}" wx:key="unique" wx:for-item="type" wx:for-index="index">{{sprite.ctype[index]}}</text>
-    </view>
-  </view>
-  -->
   <text class="characterName">{{petInfo.characterName}}</text>
   <text class="characterLevel">Lv. {{level}}</text>
   <progress wx:if="{{levelLeft < 25}}" class="experience" percent="{{levelLeft}}" stroke-width="20" activeColor="#FF400B" backgroundColor="#ccc" />

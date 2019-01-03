@@ -18,7 +18,7 @@ Page({
   data: {
     character: {
       characterId: "",
-      characterName: "Tom",
+      characterName: 'Tom',
       characterHP: 0,
       characterAD: 0,
       characterDF: 0,
@@ -26,6 +26,8 @@ Page({
       characterMiss: 0, // 小数形式
       characterAppearance: 0,
       characterExp: 0,
+      charrcterGender: 'Male',
+      mood: 100,
     },
     level: 0, // 宠物的等级
     levelLeft: 0, // 在这级宠物已有的经验占这级总经验的百分比
@@ -59,12 +61,12 @@ Page({
     //wx.getFileSystemManager()
   },
 
-  onShow: function(e){
+  onShow: function(e) {
     var that = this
     var i = 1
     wx.showLoading({
-      title: '加载中',
-    }),
+        title: '加载中',
+      }),
       that.getCharacter(),
       // var left = 100 * (levelSet[i] - characterExp) / levelSet[i];
       // that.setData({
@@ -95,6 +97,7 @@ Page({
       success(res) {
         if (res.data.success == 1) {
           that.changeCharacter(res)
+          console.log(res.data)
         } else { // 没有宠物
           wx.showToast({
             title: '创立初始角色……',
@@ -122,11 +125,11 @@ Page({
       characterMiss: parseInt(res.data["dodgeRate"]) / 100.0,
       characterAppearance: parseInt(res.data["appearance"]),
       characterExp: parseInt(res.data["exp"]),
+      // characterGender: parseInt(res.data["gender"]),
+      // mood: parseInt(res.data["mood"]),
     }
     that.setData({
-      character: characterA
-    })
-    that.setData({
+      character: characterA,
       characterSrc: imageSrc + res.data["name"] + '.png'
     })
     that.level(characterA['characterExp'])
@@ -192,6 +195,7 @@ Page({
     var characterSP = null
     var characterMiss = null; // 小数形式
     var characterAppearance = null;
+    var characterGender = null
     that.setData({
       'character.characterAppearance': res
     })
@@ -306,8 +310,8 @@ Page({
       'character.characterMiss': characterMiss,
       'character.characterAppearance': characterAppearance,
       'character.characterExp': 0,
+      'character.characterGender': Math.floor(Math.random() * 2) == 0 ? 'Male' : 'Female'
     })
-    console.log(name)
     wx.request({
       url: the_url + '/add',
       data: {
@@ -317,7 +321,7 @@ Page({
         characterAD: characterAD,
         characterDF: characterDF,
         characterSP: characterSP,
-        characterMiss: parseInt(characterMiss*100),
+        characterMiss: parseInt(characterMiss * 100),
         characterAppearance: characterAppearance,
         characterExp: 0,
       },

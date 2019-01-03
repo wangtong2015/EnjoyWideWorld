@@ -6,10 +6,11 @@
    <image class="item-icon" mode="widthFix" src="{{item.avatarUrl}}"></image>
     <i> {{item.nickname}}</i>
    <span class="item-data">
-   <i class="rankpace"> {{item.exp}}</i>
-   <image class="item-icon" mode="widthFix" src="../../photos/红心.png" bindtap='zan' hidden='{{!item.isLiked}}' data-index='{{index}}'></image>
-   <image class="item-icon" mode="widthFix" src="../../photos/灰心.png" bindtap='zan' hidden='{{item.isLiked}}' data-index='{{index}}'></image>
-   
+      <i class="rankpace"> {{item.exp}}</i>
+      <image class="item-icon" mode="widthFix" src="../../photos/红心.png" bindtap='zan' hidden='{{!item.isLiked}}' data-index='{{index}}'></image>
+      <image class="item-icon" mode="widthFix" src="../../photos/灰心.png" bindtap='zan' hidden='{{item.isLiked}}' data-index='{{index}}'></image>
+      <image class="item-icon" mode="widthFix" src="../../photos/fighted.png" bindtap='fight' hidden='{{!item.isFighted}}' data-index='{{index}}'></image>
+      <image class="item-icon" mode="widthFix" src="../../photos/fight.png" bindtap='fight' hidden='{{item.isFighted}}' data-index='{{index}}'></image>
    </span>
    
    </view>

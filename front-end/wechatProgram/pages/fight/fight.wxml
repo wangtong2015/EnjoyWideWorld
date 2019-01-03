@@ -1,0 +1,7 @@
+<!--pages/fight/fight.wxml-->
+
+<view wx:for="{{list}}" wx:key="{{index}}" class="item">
+  <view class="index_wrap" style='height:{{winH}}rpx; background: url("../../image/1.jpg") no-repeat; background-size: 100% 100%;'>
+    <view class="index_story_text">{{item}}</view>
+  </view>
+</view>

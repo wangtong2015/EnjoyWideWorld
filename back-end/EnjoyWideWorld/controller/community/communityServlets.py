@@ -7,7 +7,7 @@
 from django.http import HttpResponse
 from controller.community import communityDAOs
 from controller.map import mapDAOs
-from controller import servlet 
+from controller.servlet import AttribServlet 
 import json
 
 # servlet for community/nearbyinfo
@@ -19,10 +19,11 @@ import json
 #   namex (int) is the name of xth friend
 #   expx (int) is exp of the xth friend's pet
 #   isLikedx (int, 0 or 1) indicates whether the user has liked his/her xth friend
+#   isFightedx (int, 0 or 1) indicates whether the user has battled his/her xth friend as challenger
 def getNearbyInfo(request):
     return GetNearbyInfoServlet().execute(request)
 
-class GetNearbyInfoServlet(servlet.AttribServlet):
+class GetNearbyInfoServlet(AttribServlet):
     def _action(self, request, response):
         user = request.get("user")
         if user == "" :
@@ -62,6 +63,7 @@ class GetNearbyInfoServlet(servlet.AttribServlet):
             response['avatarUrl' + str(i)] = str(friendsInfo[i]['avatarUrl'])
             response['exp' + str(i)] = str(friendsInfo[i]['exp'])
             response['isLiked' + str(i)] = str(friendsInfo[i]['isLiked'])
+            response['isFighted' + str(i)] = str(friendsInfo[i]['isBattled'])
 
 
 # @DEPRECATED
@@ -185,7 +187,7 @@ def getFriendsInfo(request):
 def likeDelike(request):
     return LikeDelikeServlet().execute(request)
 
-class LikeDelikeServlet(servlet.AttribServlet):
+class LikeDelikeServlet(AttribServlet):
     def _action(self, request, response):
         # get user wechat id from request
         user = request.get("user")
@@ -211,3 +213,25 @@ class LikeDelikeServlet(servlet.AttribServlet):
             response['performed'] = 1
         else:
             response['performed'] = 0
+
+
+
+# servlet for community/afterbattle
+# request: GET or POST w/params
+#   attacker (int) : the challenger wechatId 
+#   defender (int) : the challenged wechatId
+#   petId (int) : pet id of the pet whose exp remains to be updated
+#   addExp (int) : the exp added to pet
+# response: json
+#   no additional information
+def afterBattle(request):
+    return AfterBattleServlet().execute(request)
+
+class AfterBattleServlet(AttribServlet):
+    def _action(self, request, response):
+        challenger = request.get('attacker')
+        challenged = request.get('defender')
+        petId = request.get('petId')
+        addExp = request.get('addExp')
+
+        communityDAOs.AfterBattle().afterBattle(challenger, challenged, int(petId), int(addExp))

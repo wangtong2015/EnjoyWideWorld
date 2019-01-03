@@ -11,15 +11,21 @@ from django.test import TestCase
 from model import models
 from controller import utils
 
-
+# Base class, contains only setup().
+# NOTE Maybe due to the problems on Django's unit-test framework,
+# I have to make 3 tests into 3 different subclasses w/ the same setup(),
+# and run them seperately.
+# If run together, there's high chances that they behave adversely.
+# But if run seperately, all tests could be passed.
+# No idea why for now.
 class CommunityTestCase(TestCase):
     
+    _users = []
+    _pets = []
 
     def setUp(self):
         n = 30
         userLocs = self._createPairs(n)
-        self._users = []
-        self._pets = []
         for i in range(n):
             user = models.User.objects.create(wechatId='wxid_testcase' + str(i), \
                 lastLongitude=userLocs[i][0], lastLatitude=userLocs[i][1])
@@ -42,6 +48,8 @@ class CommunityTestCase(TestCase):
             points.append((lon, lat))
         return points
 
+# Subclass 1: nearby info
+class CommunityTestCase1(CommunityTestCase):
     # NOTE Issue: if sent a bunch of requests together, 
     # will raise TypeError: argument must be int or float
     # when iterating models.User.objects.get().
@@ -90,7 +98,8 @@ class CommunityTestCase(TestCase):
     def test_nearbyInfoIllegal(self):
         self._test_nearbyInfo(2)
 
-
+# Subclass 2: like and delike
+class CommunityTestCase2(CommunityTestCase):
     # test community/like and user/profile together.
     def test_likeDelike_user(self):
 
@@ -150,3 +159,44 @@ class CommunityTestCase(TestCase):
             jsonResp = json.loads(resp.content)
             self.assertEqual(jsonResp['success'], 1)
             self.assertEqual(jsonResp['totalLikes'], totalLikes[i])
+    
+# Subclass 3: after battle
+class CommunityTestCase3(CommunityTestCase):
+    def test_afterbattle(self):
+        # total number of requests
+        numberOfRes = 10
+
+        # record all battle records locally
+        battled = set()
+        
+        for k in range(numberOfRes):
+
+            via = floor(random() * len(self._users))
+            to = floor(random() * len(self._users))
+            userFrom = self._users[via].wechatId
+            userTo = self._users[to].wechatId
+
+            pet = self._pets[via]
+            oldExp = pet.experience
+            addExp = floor(random() * 200)
+            oldLevel = utils.getLevel(oldExp)
+            newLevel = utils.getLevel(oldExp + addExp)
+
+            resp = self.client.post("/community/afterbattle", \
+                {'attacker' : userFrom, 'defender' : userTo, 'petId' : pet.id, 'addExp' : addExp})
+            
+            self.assertEqual(resp.status_code, 200)
+            jsonResp = json.loads(resp.content)
+
+            # check if after battle request succeeded
+            if (via, to) in battled:
+                self.assertEqual(jsonResp['success'], 0)
+
+            else:
+                self.assertEqual(jsonResp['success'], 1)
+                battled.add((via, to))
+
+                # check exp changes
+                self._pets[via] = models.Pet.objects.get(id=pet.id)
+                self.assertEqual(self._pets[via].experience, oldExp + addExp)
+

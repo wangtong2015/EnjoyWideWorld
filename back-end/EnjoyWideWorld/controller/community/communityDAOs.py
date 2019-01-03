@@ -9,6 +9,9 @@ from math import isnan
 # Get all users around R km range centered at given point 
 #   or user's last location (if longitude & latitude not provided)
 class GetNearbyInfo():
+    # params: userId (wechat id, string) longitude (float) latitude (float)
+    # returns: a list of dicts containing info of all users around the point, 
+    #   descending according to pet's exp
     def getNearbyInfo(self, userId, longitude = float('NaN'), latitude = float('NaN')):
 
         R = 1.5 # (maximum range measured in km)
@@ -47,8 +50,14 @@ class GetNearbyInfo():
                     like = 1
                 else:
                     like = 0
+                # find battle record; record exist -> user has challenged him/her
+                battleQueryResult = models.BattleRecord.objects.filter(userFrom=user, userTo=friend)
+                if len(battleQueryResult) != 0:
+                    battle = 1
+                else:
+                    battle = 0
                 dict = {'wechatId': friend.wechatId, 'nickname' : friend.nickname, \
-                    'avatarUrl' : friend.avatarUrl, 'exp' : petExp, 'isLiked' : like}
+                    'avatarUrl' : friend.avatarUrl, 'exp' : petExp, 'isLiked' : like, 'isBattled' : battle}
                 result.append(dict)
         
         result.sort(key=lambda element:element['exp'], reverse=True)
@@ -177,3 +186,24 @@ class LikeDelike():
             userTo.save()
 
         return True
+
+class AfterBattle():
+    # params: challenger (wechat id, string) challenged (wechat id, string) 
+    #   petId (winner's pet id, int) addExp (increase in winner's pet's exp, int)
+    # no return value
+    def afterBattle(self, challenger, challenged, petId, addExp):
+        userFrom = models.User.objects.get(wechatId=challenger)
+        userTo = models.User.objects.get(wechatId=challenged)
+
+        battleQueryResult = models.BattleRecord.objects.filter(userFrom=userFrom, userTo=userTo)
+        if len(battleQueryResult) > 0:
+            raise Exception( \
+                "Battle has completed before between {0} and {1}".format(challenger, challenged))
+        
+        models.BattleRecord.objects.create(userFrom=userFrom, userTo=userTo)
+
+        pet = models.Pet.objects.get(id=petId)
+        
+        from controller.pet.petDAOs import UpdateExperience
+        UpdateExperience().updateExperience(petId, pet.experience + addExp)
+        

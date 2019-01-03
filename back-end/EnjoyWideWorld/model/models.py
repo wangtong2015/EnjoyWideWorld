@@ -59,6 +59,11 @@ class User(models.Model):
     # Related name: likes - beingLikeds
     likes = models.ManyToManyField('User', through = "LikeRecord")
 
+    # Many-to-may fields are linked to BattleRecord
+    # Related name: battleTargets - beingBattleds
+    # Problem: conflict to likes. Ignore that
+    # battleTargets = models.ManyToManyField('User', through = "BattleRecord")
+
     def __str__(self):
         return self.wechatId
 
@@ -100,5 +105,14 @@ class LikeRecord(models.Model):
     userFrom = models.ForeignKey(User, on_delete = models.CASCADE)
     userTo = models.ForeignKey(User, on_delete = models.CASCADE, related_name = "beingLikeds")
 
+    def __str__(self):
+        return "{0}:({1}, {2})".format(self.id, self.userFrom.wechatId, self.userTo.wechatId)
+
+# 战斗信息
+class BattleRecord(models.Model):
+    id = models.AutoField(primary_key = True)  # Auto increment ID
+    userFrom = models.ForeignKey(User, on_delete = models.CASCADE)
+    userTo = models.ForeignKey(User, on_delete = models.CASCADE, related_name = "beingBattleds")
+    
     def __str__(self):
         return "{0}:({1}, {2})".format(self.id, self.userFrom.wechatId, self.userTo.wechatId)

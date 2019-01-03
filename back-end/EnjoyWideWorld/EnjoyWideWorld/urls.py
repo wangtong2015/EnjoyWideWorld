@@ -35,6 +35,7 @@ urlpatterns = [
     url(r'^community/usersnearby$', communityServlets.getUsersNearby),
     url(r'^community/nearbyinfo$', communityServlets.getNearbyInfo),
     url(r'^community/like$', communityServlets.likeDelike),
+    url(r'^community/afterbattle$', communityServlets.afterBattle),
     url(r'^user/profile$', userServlets.getUserProfile),
     url(r'^user/openid$', userServlets.getOpenId),
     url(r'^user/add$', userServlets.updateUserInfo)

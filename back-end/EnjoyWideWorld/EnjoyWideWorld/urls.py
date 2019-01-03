@@ -31,10 +31,9 @@ urlpatterns = [
     url(r'^map/checkin$', mapServlets.checkIn),
     url(r'^pet/petinfo$', petServlets.getPetInfo),
     url(r'^pet/add$', petServlets.createPet),
-    url(r'^community/friendsinfo$', communityServlets.getFriendsInfo),
-    url(r'^community/usersnearby$', communityServlets.getUsersNearby),
     url(r'^community/nearbyinfo$', communityServlets.getNearbyInfo),
     url(r'^community/like$', communityServlets.likeDelike),
+    url(r'^community/afterbattle$', communityServlets.afterBattle),
     url(r'^user/profile$', userServlets.getUserProfile),
     url(r'^user/openid$', userServlets.getOpenId),
     url(r'^user/add$', userServlets.updateUserInfo)

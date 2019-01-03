@@ -23,3 +23,16 @@ def getDistance(longitude1, latitude1, longitude2, latitude2):
     distance = R * c
 
     return distance
+
+# copied from front-end
+def getLevel(experience):
+    LEVEL_SET = [0, 20, 60, 140, 300, 620, 1260, 2260]
+    TOP_LEVEL = 7
+    if experience < LEVEL_SET[TOP_LEVEL]:
+        for i in range(TOP_LEVEL):
+            if LEVEL_SET[i] <= experience and experience < LEVEL_SET[i + 1]:
+                return i
+    else: # 超出levels的情况下，以后每级的经验值不变
+        left = experience - LEVEL_SET[TOP_LEVEL]
+        leftLevels = floor(left / (LEVEL_SET[TOP_LEVEL] - LEVEL_SET[TOP_LEVEL - 1]))
+        return TOP_LEVEL + leftLevels

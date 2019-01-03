@@ -45,33 +45,25 @@ class CreatePet():
         return pet.id
 
 from math import floor
+from controller.utils import getLevel
 # Update pet's ability according to the new experience level
 class UpdateExperience():
+    HEALTH_INC = 15
+    ATTACK_INC = 5
+    DEFEND_INC = 5
+    SPEED_INC = 5
+    DODGE_RATE_INC = 1
     def updateExperience(self, petId, newExp):
         pet = models.Pet.objects.get(id=petId)
         oldExp = pet.experience
-        oldLevel = self._getLevel(oldExp)
-        newLevel = self._getLevel(newExp)
+        oldLevel = getLevel(oldExp)
+        newLevel = getLevel(newExp)
         
         pet.experience = newExp
         if newLevel > oldLevel:
-            pet.health += 15 * (newLevel - oldLevel)
-            pet.attack += 5 * (newLevel - oldLevel)
-            pet.defend += 5 * (newLevel - oldLevel)
-            pet.speed += 5 * (newLevel - oldLevel)
-            pet.dodgeRate += 1 * (newLevel - oldLevel)
+            pet.health += self.HEALTH_INC * (newLevel - oldLevel)
+            pet.attack += self.ATTACK_INC * (newLevel - oldLevel)
+            pet.defend += self.DEFEND_INC * (newLevel - oldLevel)
+            pet.speed += self.SPEED_INC * (newLevel - oldLevel)
+            pet.dodgeRate += self.DODGE_RATE_INC * (newLevel - oldLevel)
         pet.save()
-
-    _levelSet = [0, 20, 60, 140, 300, 620, 1260, 2260]
-    _topLevel = 7
-
-    # copied from front-end
-    def _getLevel(self, experience):
-        if experience < self._levelSet[self._topLevel]:
-            for i in range(self._topLevel):
-                if self._levelSet[i] <= experience and experience < self._levelSet[i + 1]:
-                    return i
-        else: # 超出levels的情况下，以后每级的经验值不变
-            left = experience - self._levelSet[self._topLevel]
-            leftLevels = floor(left / (self._levelSet[self._topLevel] - self._levelSet[self._topLevel - 1]))
-            return self._topLevel + leftLevels

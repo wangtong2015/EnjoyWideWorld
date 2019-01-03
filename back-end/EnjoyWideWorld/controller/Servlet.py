@@ -41,7 +41,7 @@ class AttribServlet():
         except Exception as e:
             response['success'] = 0
             response['error'] = str(e)
-            traceback.print_exc()
+            # traceback.print_exc()
             print(e)
 
         # pack up json and return

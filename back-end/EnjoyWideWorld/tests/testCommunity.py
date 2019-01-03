@@ -78,7 +78,7 @@ class CommunityTestCase1(CommunityTestCase):
             
             self.assertEqual(resp.status_code, 200)
             jsonResp = json.loads(resp.content)
-            print(resp.content)
+            # print(resp.content)
             self.assertEqual(jsonResp['success'], 1)
         
         # type 2: invalid user id

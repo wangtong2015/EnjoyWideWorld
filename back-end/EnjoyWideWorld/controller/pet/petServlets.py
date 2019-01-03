@@ -38,7 +38,7 @@ class GetPetInfoServlet(AttribServlet):
         pet = petDAOs.GetPetInfo().getPetInfo(wxid)
 
         if pet == None:
-            raise Exception("ERROR: wechat id does not match any users")
+            raise Exception("ERROR: cannot find pet or user")
 
         response['id'] = pet.id
         response['name'] = pet.name

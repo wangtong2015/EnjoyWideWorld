@@ -2,3 +2,4 @@
 */.DS_Store
 back-end/EnjoyWideWorld/db.sqlite3
 *.pyc
+back-end/EnjoyWideWorld/htmlcov

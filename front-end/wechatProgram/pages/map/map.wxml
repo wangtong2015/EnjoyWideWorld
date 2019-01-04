@@ -44,7 +44,6 @@
       <cover-view class="explore_show_exp">EXP 经验值 ：{{exp}}</cover-view>
       <cover-view class="explore_show_harvest">获取物品 ：{{item_linked}}</cover-view>
       <cover-view class="explore_show_description">--简介 ：{{description}}</cover-view>
-      <cover-view class="explore_show_go" bindtap='to_go'>出发</cover-view>
       </cover-view>
 
   </map>

@@ -51,7 +51,7 @@ Page({
       item_linked: "item2",
       picaddr: "/photos/f756c2ec0f62d341fe128038bccde5e0.jpg",
     }],*/
-    explore_photo_path: "/photos/1ed73edb52d890c4b589d56c5149c28f.jpg",
+    explore_photo_path: "/markers_pic/1ed73edb52d890c4b589d56c5149c28f.jpg",
     title:"清华大学",
     item_linked:"",
     exp:10,
@@ -243,11 +243,11 @@ Page({
   show_markerinfo_page: function (marker_id) {
     let file
     wx.getFileSystemManager().readdir({
-      dirPath: "/photos",
+      dirPath: "/markers_pic",
       success: (res) => {
         file = res.files[marker_id]
         this.setData({
-          explore_photo_path: '/photos/' + file,
+          explore_photo_path: '/markers_pic/' + file,
           my_modal_hidden: false
         })
       }

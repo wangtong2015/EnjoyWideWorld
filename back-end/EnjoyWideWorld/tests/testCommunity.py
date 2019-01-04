@@ -69,6 +69,7 @@ class CommunityTestCase1(CommunityTestCase):
                 resp = self.client.post('/community/nearbyinfo', \
                     {'user' : self._users[userIdx].wechatId, \
                     'longitude' : lon, 'latitude' : lat})
+                currentUserInfo = models.User.objects.get(wechatId=self._users[userIdx].wechatId)
             else:
                 currentUserInfo = models.User.objects.get(wechatId=self._users[userIdx].wechatId)
                 lon = currentUserInfo.lastLongitude
@@ -80,6 +81,9 @@ class CommunityTestCase1(CommunityTestCase):
             jsonResp = json.loads(resp.content)
             # print(resp.content)
             self.assertEqual(jsonResp['success'], 1)
+            
+            self.assertAlmostEqual(float(currentUserInfo.lastLongitude), float(lon))
+            self.assertAlmostEqual(float(currentUserInfo.lastLatitude), float(lat))
         
         # type 2: invalid user id
         else:

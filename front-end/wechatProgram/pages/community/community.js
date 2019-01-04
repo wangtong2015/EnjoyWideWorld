@@ -71,24 +71,32 @@ Page({
     var that = this
     var _index = e.currentTarget.dataset.index;
     var _list2 = [...that.data.list2]; // list2的引用
-    _list2[_index].isLiked = !that.data.list2[_index].isLiked;
+    if (app.globalData.openid == that.data.list2[_index].wechatId) {
+      wx.showToast({
+        title: '不能点赞自己',
+        duration: 2000,
+        icon: 'none'
+      })
+    } else {
+      _list2[_index].isLiked = !that.data.list2[_index].isLiked;
 
-    that.setData({
-      list2: _list2
-    })
-    wx.request({
-      url: the_url + '/like',
-      data: {
-        user: app.globalData.openid, // 点赞/取消点赞的人的openid
-        friend: that.data.list2[_index].wechatId, // 被点赞/被取消点赞的人的openid
-        type: that.data.list2[_index].isLiked ? 1 : 0 // true: 点赞; false: 取消点赞
-      },
-      header: {
-        'content-type': 'application/x-www-form-urlencoded' // 默认值
-      },
-      method: 'POST',
-      success: function(res) {},
-    });
+      that.setData({
+        list2: _list2
+      })
+      wx.request({
+        url: the_url + '/like',
+        data: {
+          user: app.globalData.openid, // 点赞/取消点赞的人的openid
+          friend: that.data.list2[_index].wechatId, // 被点赞/被取消点赞的人的openid
+          type: that.data.list2[_index].isLiked ? 1 : 0 // true: 点赞; false: 取消点赞
+        },
+        header: {
+          'content-type': 'application/x-www-form-urlencoded' // 默认值
+        },
+        method: 'POST',
+        success: function(res) {},
+      });
+    }
   },
   fight: function(e) {
     var that = this
@@ -110,7 +118,7 @@ Page({
               title: '挑战成功',
               duration: 2000,
               icon: 'none',
-              success: function(){
+              success: function() {
                 console.log()
                 wx.request({
                   url: the_url + '/afterbattle',
@@ -120,20 +128,19 @@ Page({
                     petId: res1.id,
                     addExp: res1.exp > res2.exp ? 50 : 100
                   },
-                  success: (res) => { },
-                  fail: () => { },
-                  complete: () => {
-                  }
+                  success: (res) => {},
+                  fail: () => {},
+                  complete: () => {}
                 })
               }
             })
-            
-          }else{
+
+          } else {
             wx.showToast({
               title: '挑战失败',
               duration: 2000,
               icon: 'none',
-              success: function () {
+              success: function() {
                 wx.request({
                   url: the_url + '/afterbattle',
                   data: {
@@ -142,10 +149,9 @@ Page({
                     petId: res1.id,
                     addExp: 25
                   },
-                  success: (res) => { },
-                  fail: () => { },
-                  complete: () => {
-                  }
+                  success: (res) => {},
+                  fail: () => {},
+                  complete: () => {}
                 })
               }
             })
@@ -171,14 +177,14 @@ Page({
         console.log(res1)
       })
     }
-    if (app.globalData.openid == that.data.list2[_index].wechatId){
+    if (app.globalData.openid == that.data.list2[_index].wechatId) {
       wx.showToast({
         title: '不能挑战自己',
         duration: 2000,
         icon: 'none'
       })
     }
-    if (_list2[_index].isFighted){
+    if (_list2[_index].isFighted) {
       wx.showToast({
         title: '已挑战过此人',
         duration: 2000,

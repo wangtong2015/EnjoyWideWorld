@@ -97,7 +97,6 @@ Page({
       success(res) {
         if (res.data.success == 1) {
           that.changeCharacter(res)
-          console.log(res.data)
         } else { // 没有宠物
           wx.showToast({
             title: '创立初始角色……',

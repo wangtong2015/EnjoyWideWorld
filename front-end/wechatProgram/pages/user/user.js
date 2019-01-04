@@ -19,7 +19,6 @@ Page({
   onLoad: function () {
     var that = this;
     that.setData({userInfo: app.globalData.userInfo})
-    console.log(that.userInfo)
   },
 
   /**
